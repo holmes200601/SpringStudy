@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- include this line to use annotation  -->
+	<!-- <context:annotation-config base-package="sampson.bean"/> -->
+	<context:component-scan base-package="sampson.bean"></context:component-scan>
+	
+
+	<!-- define xml-base beans here -->
+    <bean id="sampson" class="sampson.util.ObjectFactory" factory-method="createCustomer">
+        <constructor-arg index="0" value="sampson" />
+        <constructor-arg index="1" value="13585971003" />
+        <constructor-arg index="2" value="28" />
+        <constructor-arg index="3" value="MALE" />
+        <constructor-arg index="4" value="1" />
+        <constructor-arg index="5">
+        	<set>
+        		<ref bean="address1" />
+        		<ref bean="address2" />
+        	</set>
+        </constructor-arg>
+    </bean>
+
+	<!-- two address instances -->
+	<bean id="address1" class="sampson.bean.Address" scope="prototype">
+		<constructor-arg index="0" value="Shanghai" />
+		<constructor-arg index="1" value="000021" />
+	</bean>	
+	<bean id="address2" class="sampson.bean.Address" scope="prototype">
+		<constructor-arg index="0" value="Chongqing" />
+		<constructor-arg index="1" value="000023"/>
+	</bean>
+
+	<!-- two sales orders instances -->
+	<bean id="order1" class="sampson.bean.SalesOrder">
+		<qualifier value="sampson" />
+		<property name="id" value="1" />
+		<property name="saledProduct">
+			<map>
+				<entry>
+					<key>
+						<ref bean="product1" />
+					</key>
+					<value>1</value>
+				</entry>
+				<entry>
+					<key>
+						<ref bean="product2" />
+					</key>
+					<value>2</value>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	<bean id="order2" class="sampson.bean.SalesOrder">
+		<qualifier value="sampson" />
+		<property name="id" value="2" />
+		<property name="saledProduct">
+			<map>
+				<entry>
+					<key>
+						<ref bean="product1" />
+					</key>
+					<value>2</value>
+				</entry>
+				<entry>
+					<key>
+						<ref bean="product2" />
+					</key>
+					<value>4</value>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	<bean id="order3" class="sampson.bean.SalesOrder">
+		<qualifier value="fred" />
+		<property name="id" value="3" />
+		<property name="saledProduct">
+			<map>
+				<entry>
+					<key>
+						<ref bean="product1" />
+					</key>
+					<value>10</value>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	<bean id="order4" class="sampson.bean.SalesOrder">
+		<qualifier value="fred" />
+		<property name="id" value="4" />
+		<property name="saledProduct">
+			<map>
+				<entry>
+					<key>
+						<ref bean="product2" />
+					</key>
+					<value>10</value>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
+	<!-- two product instances -->
+	<bean id="product1" class="sampson.bean.Product">
+		<property name="properties">
+			<map>
+				<entry key="id" value="1" />
+				<entry key="name" value="P2" />
+				<entry key="price" value="100" />
+			</map>
+		</property>
+	</bean>
+	<bean id="product2" class="sampson.bean.Product">
+		<property name="id" value="2" />
+		<property name="name" value="P2" />
+		<property name="price" value="200" />
+	</bean>
+
+
+</beans>

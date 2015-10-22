@@ -1,0 +1,9 @@
+#ignored file patterns
+*/.classpath
+*/.project
+*/target/
+*/bin/
+*/.settings
+.metadata/
+cfg/
+RemoteSystemsTempFiles
