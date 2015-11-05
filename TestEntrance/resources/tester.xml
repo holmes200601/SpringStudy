@@ -1,0 +1,6 @@
+<test-configs>
+	<config>
+		<project>Resource</project>
+		<test-bean-name>resource-test-bean</test-bean-name>
+	</config>
+</test-configs>
