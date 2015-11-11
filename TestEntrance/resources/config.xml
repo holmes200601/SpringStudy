@@ -1,6 +1,6 @@
 <project-configs>
 	<config>
 		<project>Resource</project>
-		<path>sampson.resourc</path>
+		<path>sampson.resource.AppConfig</path>
 	</config>
 </project-configs>
