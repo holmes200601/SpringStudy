@@ -1,6 +1,6 @@
 package sampson.string;
 
-public class StringUtils {
+public class StringUtil {
     public static boolean isNullString(String str) {
         return (str == null || str.trim().isEmpty());
     }

@@ -1,25 +1,18 @@
 package sampson.config;
 
-import java.math.BigDecimal;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
-import org.springframework.context.annotation.Profile;
 
 import sampson.bean.Address;
 import sampson.bean.Customer;
 import sampson.bean.Invoice;
-import sampson.bean.Product;
 import sampson.bean.Report;
-import sampson.bean.SalesOrder;
 import sampson.enumeration.Gender;
 
 

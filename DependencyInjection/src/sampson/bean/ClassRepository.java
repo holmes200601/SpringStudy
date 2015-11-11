@@ -2,7 +2,6 @@ package sampson.bean;
 
 import java.math.BigDecimal;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Repository;
 

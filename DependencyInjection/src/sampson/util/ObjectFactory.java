@@ -1,11 +1,9 @@
 package sampson.util;
 
-import java.util.List;
 import java.util.Set;
 
 import sampson.bean.Address;
 import sampson.bean.Customer;
-import sampson.bean.SalesOrder;
 import sampson.enumeration.Gender;
 
 public class ObjectFactory {

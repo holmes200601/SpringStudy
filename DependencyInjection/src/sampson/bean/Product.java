@@ -1,9 +1,7 @@
 package sampson.bean;
 
 import java.math.BigDecimal;
-import java.util.Map.Entry;
 import java.util.Properties;
-import java.util.Set;
 
 public class Product {
 	private Long id;

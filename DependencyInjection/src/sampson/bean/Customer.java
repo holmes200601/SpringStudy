@@ -1,14 +1,11 @@
 package sampson.bean;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Set;
 
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 
 import sampson.enumeration.Gender;
 

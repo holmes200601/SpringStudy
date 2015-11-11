@@ -8,10 +8,9 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import sampson.string.StringUtils;
+import sampson.string.StringUtil;
 
 public class XmlFileParser {
     private String xmlFileName = null;
@@ -21,14 +20,14 @@ public class XmlFileParser {
         this.xmlFileName = xmlFileName;
         try {
             DocumentBuilder docBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            parsedDom = docBuilder.parse(xmlFileName);
+            parsedDom = docBuilder.parse(this.xmlFileName);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
     
     public String getElementValueById(String id) {
-        if (StringUtils.isNullString(id)) {
+        if (StringUtil.isNullString(id)) {
             return "";
         }
         
@@ -40,7 +39,7 @@ public class XmlFileParser {
     }
     
     public List<String> getElementsValueByTagName(String tagName) {
-        if (StringUtils.isNullString(tagName)) {
+        if (StringUtil.isNullString(tagName)) {
             return new ArrayList<String>();
         }
         
