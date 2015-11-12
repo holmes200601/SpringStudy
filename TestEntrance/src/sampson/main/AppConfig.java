@@ -4,8 +4,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 
 
-@Configuration
-@ImportResource(value={"file:E:\\SpringWorkspace\\MainEntrance\\Bean.xml"})
+@Configuration("testConfig")
+@ImportResource(value={"file:E:\\SpringWorkspace\\TestEntrance\\bean.xml"})
 public class AppConfig {
     
 }

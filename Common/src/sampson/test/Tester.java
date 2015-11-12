@@ -1,4 +1,4 @@
-package sampson.main;
+package sampson.test;
 
 public interface Tester {
     public void prepareTest();
