@@ -36,6 +36,7 @@ public class MainEntrance {
             registerConfigClass(ctx, configClassList);
             List<Tester> testBeanList = MainEntrance.readTestBeans(ctx, testerFile);
             testBeanList.stream().forEach(TestExecuter::execute);
+            testBeanList.stream().forEach(TestExecuter::clear);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -103,6 +104,11 @@ public class MainEntrance {
 
             logger.info("Executing test '{}'", tester.getClass().getName());
             tester.executeTest();
+        }
+        
+        public static void clear(Tester tester) {
+            logger.info("Clearing test '{}'", tester.getClass().getName());
+            tester.clearTest();
         }
     }
 

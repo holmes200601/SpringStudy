@@ -9,7 +9,8 @@
 
 	<!-- include this line to use annotation  -->
 	<!-- <context:annotation-config base-package="sampson.bean"/> -->
-	<context:component-scan base-package="sampson.resouce"></context:component-scan>
+	<context:component-scan base-package="sampson.resouce" />
+	<context:property-placeholder location="classpath:testFile.properties" />
 	
 
 	<!-- define xml-base beans here if needed-->
