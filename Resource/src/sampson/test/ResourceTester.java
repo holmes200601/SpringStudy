@@ -1,5 +1,8 @@
 package sampson.test;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 
 import org.slf4j.Logger;
@@ -36,15 +39,15 @@ public class ResourceTester implements Tester {
          * 1) Create file with read content. 2) Create the
          * resources accordingly.
          */
-        logger.info("ResourceTester::prepareTest");
+        logger.debug("ResourceTester::prepareTest");
 
         Path path = GenFileManager.createNewFile("C:\\temp\\" + testFileName);
         path = GenFileManager.truncateStringToFile(path, testFileContent);
-        
+
         createUrlResource(path);
-        
+
         createFileSystemResource(path);
-        
+
         createClassPathResource(path);
     }
 
@@ -56,7 +59,18 @@ public class ResourceTester implements Tester {
          * URLResource by reading content from that resource
          */
 
-        logger.info("ResourceTester::executeTest");
+        logger.debug("ResourceTester::executeTest");
+        
+        if (fileSystemResource.getFile().exists()) {
+            try {
+                String readContent = new String(Files.readAllBytes(fileSystemResource.getFile().toPath()));
+                    logger.info("***FileSystemResources test {}.***", testFileContent.equals(readContent) ? "PASSED" : "FAILED");
+            } catch (IOException ex) {
+                logger.error("Can not read content of fileSystemResource");
+                ex.printStackTrace();                
+            }
+        }
+        
     }
 
     public void clearTest() {
@@ -64,22 +78,49 @@ public class ResourceTester implements Tester {
          * Clear all the created file from above resources
          */
         GenFileManager.deleteFile("C:\\temp\\" + testFileName);
+        GenFileManager.deleteFile(fileSystemResource.getPath());
 
     }
-    
+
     private void createUrlResource(Path path) {
         logger.debug("Creating URL resource '{}'", path.toString());
-        
+
     }
 
     private void createFileSystemResource(Path path) {
         logger.debug("Creating file system resource '{}'", path.toString());
-        
+
+        /*
+         * 1) Find directory of the the class 2) Create a
+         * file in the directory 2) Create
+         * filesystemresource in the directory
+         */
+        String parentPath = getParentOfTargetClass(this.getClass());
+        if (parentPath == null) {
+            logger.error("Null parent path was found.");
+        }
+
+        Path filePath = GenFileManager.createNewFile(parentPath + "/fileSystemResource.txt");
+        GenFileManager.truncateStringToFile(filePath, testFileContent);
+        fileSystemResource = new FileSystemResource(filePath.toFile());
+        logger.debug("FileSystemResource was created successfully.");
     }
-    
+
     private void createClassPathResource(Path path) {
         logger.debug("Creating classpath resource '{}'", path.toString());
-        
+
     }
-    
+
+    private String getParentOfTargetClass(Class<?> clazz) {
+        String result = null;
+
+        if (clazz != null) {
+            String classPath = clazz.getName().replace('.', '/').concat(".class");
+            String filePath = clazz.getClassLoader().getResource(classPath).getPath();
+            result = filePath.substring(0, filePath.lastIndexOf('/'));
+        }
+
+        return result;
+    }
+
 }

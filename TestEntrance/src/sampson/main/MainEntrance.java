@@ -99,15 +99,12 @@ public class MainEntrance {
 
     private static class TestExecuter {
         public static void execute(Tester tester) {
-            logger.info("Preparing test '{}'", tester.getClass().getName());
             tester.prepareTest();
 
-            logger.info("Executing test '{}'", tester.getClass().getName());
             tester.executeTest();
         }
         
         public static void clear(Tester tester) {
-            logger.info("Clearing test '{}'", tester.getClass().getName());
             tester.clearTest();
         }
     }
