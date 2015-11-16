@@ -5,7 +5,7 @@ import org.springframework.context.annotation.ImportResource;
 
 
 @Configuration("testConfig")
-@ImportResource(value={"file:E:\\SpringWorkspace\\TestEntrance\\bean.xml"})
+@ImportResource(value={"classpath:bean.xml"})
 public class AppConfig {
     
 }

@@ -28,8 +28,8 @@ public class MainEntrance {
          * each tester and print log
          */
 
-        String configFile = "E:\\SpringWorkspace\\TestEntrance\\resources\\config.xml";
-        String testerFile = "E:\\SpringWorkspace\\TestEntrance\\resources\\tester.xml";
+        String configFile = "resources\\config.xml";
+        String testerFile = "resources\\tester.xml";
         try (AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext()) {
             List<Class<?>> configClassList = MainEntrance.readConfigClass(configFile);
             configClassList.add(sampson.main.AppConfig.class);
