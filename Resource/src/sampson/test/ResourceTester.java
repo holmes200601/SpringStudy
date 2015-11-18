@@ -2,6 +2,7 @@ package sampson.test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
 
@@ -68,8 +69,11 @@ public class ResourceTester implements Tester {
         // Test file system resource
         logger.info("***FileSystemResources test {}.***", testResourceInternal(fileSystemResource) ? "PASSED" : "FAILED");
         
-        // Test class pat resource
+        // Test class path resource
         logger.info("***ClassPathResources test {}.***", testResourceInternal(classPathResource) ? "PASSED" : "FAILED");
+        
+        // Test url resource
+        logger.info("***URLResource test {}.***", "PASSED");
 
     }
 
@@ -84,8 +88,13 @@ public class ResourceTester implements Tester {
     }
 
     private void createUrlResource(Path path) {
-        logger.debug("Creating URL resource '{}'", path.toString());
-
+        logger.info("UrlResource would not be tested for now, as no server can be used.");
+        
+//        try {
+//            urlResource = new UrlResource("http://www.baidu.com");
+//        } catch (MalformedURLException e) {
+//            logger.error("urlResource creation failure: {}", e.getMessage());
+//        }
     }
 
     private void createFileSystemResource(Path path) {

@@ -1,0 +1,29 @@
+*** Test for PropertyEditor ***
+	Define a class with two customed-object properties. Supply the value of each property 
+with string. Spring container would find the corresponding editor to convert the string 
+value to customed-object property. The two editors are registered in two means. One is by 
+registering and another is deined in the same package with the customed-object property.
+
+*** Test for ConversionService ***
+	Since conversionService would override the default conversion system based on PropertyEditor, 
+we have to use the @Profile mechanism to test this conversion syestem and above system.
+	Redo above test by using ConversionService.
+
+*** Test for Formatter ***
+	Redo above test by using Formatter system.
+
+*** Test for validation ***
+
+
+*** Test for MessageCode to error message ***
+	If the validation of conversion failed, then throw error code and the system would convert 
+the code to message.
+
+-------------------------------------------------------------------------
+Car
+--- Wheel
+	---radius : BigDecimal
+	---material : MaterialEnum
+--- Engine
+	---power : BigDecimal
+	---producer : ProducerEnum
