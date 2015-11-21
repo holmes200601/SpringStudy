@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public class Engine {
     private BigDecimal power = BigDecimal.ZERO;
-    private ProducerEnum producer = ProducerEnum.BENZ;
+    private ProducerEnum producer = ProducerEnum.DEFAULT;
     
     public BigDecimal getPower() {
         return power;

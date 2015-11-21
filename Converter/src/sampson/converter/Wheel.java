@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public class Wheel {
     private BigDecimal radius = BigDecimal.ZERO;
-    private MaterialEnum material = MaterialEnum.STEEL;
+    private MaterialEnum material = MaterialEnum.DEFAULT;
     
     public BigDecimal getRadius() {
         return radius;
