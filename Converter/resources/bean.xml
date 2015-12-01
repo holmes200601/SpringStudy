@@ -9,8 +9,8 @@
 
 	<!-- include this line to use annotation  -->
 	<!-- <context:annotation-config base-package="sampson.bean"/> -->
-	<context:component-scan base-package="sampson.resouce" />
-	<context:property-placeholder location="classpath:resource.properties" />
+	<context:component-scan base-package="sampson.converter" />
+	<context:property-placeholder location="classpath:converter.properties" />
 	
 
 	<!-- define xml-base beans here if needed-->

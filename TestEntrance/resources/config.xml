@@ -1,6 +1,12 @@
 <project-configs>
+	<!-- 
 	<config>
 		<project>Resource</project>
 		<path>sampson.resource.AppConfig</path>
+	</config>
+	 -->
+	<config>
+		<project>Converter</project>
+		<path>sampson.convert.converter.AppConfig</path>
 	</config>
 </project-configs>

@@ -14,6 +14,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.annotation.Configuration;
 import org.xml.sax.SAXException;
 
+import sampson.convert.converter.WheelEditor;
 import sampson.file.XmlFileParser;
 import sampson.test.Tester;
 

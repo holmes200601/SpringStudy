@@ -1,6 +1,12 @@
 <test-configs>
+	<!-- 
 	<config>
 		<project>Resource</project>
 		<test-bean-name>resourceTester</test-bean-name>
+	</config>
+	 -->
+	<config>
+		<project>Converter</project>
+		<test-bean-name>converterTester</test-bean-name>
 	</config>
 </test-configs>

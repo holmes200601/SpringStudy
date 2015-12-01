@@ -1,24 +1,27 @@
-package sampson.converter;
+package sampson.convert.converter;
 
 import java.beans.PropertyEditor;
 import java.beans.PropertyEditorSupport;
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.PropertyEditorRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ConfigurableApplicationContext;
 
+import sampson.convert.bean.MaterialEnum;
+import sampson.convert.bean.Wheel;
 import sampson.string.StringUtil;
 
 public class WheelEditor extends PropertyEditorSupport {
     private static Logger logger = LoggerFactory.getLogger(WheelEditor.class);
-    
-    @Autowired
-    private ConfigurableApplicationContext context;
     
     @Override
     public void setAsText(String textValue) {
@@ -26,6 +29,7 @@ public class WheelEditor extends PropertyEditorSupport {
             return;
         }
         
+        this.setValue(new Wheel());
         List<String> propertyList = StringUtil.split(textValue, ";");
         propertyList.stream().forEach(this::setPropertyValue);
     }
@@ -46,16 +50,26 @@ public class WheelEditor extends PropertyEditorSupport {
         
         try {
             Field field = wheel.getClass().getDeclaredField(nameValuePair[0]);
-            ConfigurableListableBeanFactory beanFactory = context.getBeanFactory();
-            PropertyEditorRegistry peRegistry = null;
-            beanFactory.copyRegisteredEditorsTo(peRegistry);
-            PropertyEditor fieldEditor = peRegistry.findCustomEditor(field.getType(), null);
-            if (fieldEditor == null) {
-                logger.error("No property editor was found for class '{}'", field.getType());
+            field.setAccessible(true);
+            Object fieldValue = null;
+            if (field.getType() == BigDecimal.class) {
+                fieldValue = new BigDecimal(nameValuePair[1]);
+            } else if (field.getType() == MaterialEnum.class) {
+                fieldValue = MaterialEnum.valueOf(nameValuePair[1]);
             }
-            fieldEditor.setValue(field.get(wheel));
-            fieldEditor.setAsText(nameValuePair[1]);
-            field.set(wheel, fieldEditor.getValue());
+            field.set(wheel, fieldValue);
+//            field.setAccessible(true);
+//            ConfigurableListableBeanFactory beanFactory = ((ConfigurableApplicationContext) context).getBeanFactory();
+//            PropertyEditorRegistry peRegistry = null;
+//            beanFactory.copyRegisteredEditorsTo(peRegistry);
+//            PropertyEditor fieldEditor = peRegistry.findCustomEditor(field.getType(), null);
+//            if (fieldEditor == null) {
+//                logger.error("No property editor was found for class '{}'", field.getType());
+//            }
+//            fieldEditor.setValue(field.get(wheel));
+//            fieldEditor.setAsText(nameValuePair[1]);
+//            field.set(wheel, fieldEditor.getValue());
+            
         } catch (NoSuchFieldException | SecurityException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

@@ -1,4 +1,4 @@
-package sampson.converter;
+package sampson.convert.bean;
 
 import java.math.BigDecimal;
 

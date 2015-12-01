@@ -58,14 +58,21 @@
 			<artifactId>DependencyInjection</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<!-- 
 		<dependency>
 			<groupId>Resource</groupId>
 			<artifactId>Resource</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		 -->
 		<dependency>
 			<groupId>Common</groupId>
 			<artifactId>Common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>Converter</groupId>
+			<artifactId>Converter</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>

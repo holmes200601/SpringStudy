@@ -1,4 +1,4 @@
-package sampson.converter;
+package sampson.convert.bean;
 
 public class Car {
     private Engine engine;
