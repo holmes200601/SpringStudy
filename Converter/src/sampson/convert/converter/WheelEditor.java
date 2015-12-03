@@ -25,61 +25,8 @@ public class WheelEditor extends PropertyEditorSupport {
     
     @Override
     public void setAsText(String textValue) {
-        if (StringUtil.isNullString(textValue)) {
-            return;
-        }
-        
-        this.setValue(new Wheel());
-        List<String> propertyList = StringUtil.split(textValue, ";");
-        propertyList.stream().forEach(this::setPropertyValue);
-    }
-    
-    protected void setPropertyValue(String nameValueStr) {
-        Object obj = this.getValue();
-        if (obj == null || !(obj instanceof Wheel)) {
-            logger.error("Try to apply '{}' to wrong class '{}'", obj.getClass().getName());
-            return;
-        }
-        
-        Wheel wheel = (Wheel) obj;
-        String[] nameValuePair = nameValueStr.split(":");
-        if (nameValuePair.length != 2) {
-            logger.error("Wrong name-value pair format '{}' for class {}", nameValueStr, wheel.getClass().getName());
-            return;
-        }
-        
-        try {
-            Field field = wheel.getClass().getDeclaredField(nameValuePair[0]);
-            field.setAccessible(true);
-            Object fieldValue = null;
-            if (field.getType() == BigDecimal.class) {
-                fieldValue = new BigDecimal(nameValuePair[1]);
-            } else if (field.getType() == MaterialEnum.class) {
-                fieldValue = MaterialEnum.valueOf(nameValuePair[1]);
-            }
-            field.set(wheel, fieldValue);
-//            field.setAccessible(true);
-//            ConfigurableListableBeanFactory beanFactory = ((ConfigurableApplicationContext) context).getBeanFactory();
-//            PropertyEditorRegistry peRegistry = null;
-//            beanFactory.copyRegisteredEditorsTo(peRegistry);
-//            PropertyEditor fieldEditor = peRegistry.findCustomEditor(field.getType(), null);
-//            if (fieldEditor == null) {
-//                logger.error("No property editor was found for class '{}'", field.getType());
-//            }
-//            fieldEditor.setValue(field.get(wheel));
-//            fieldEditor.setAsText(nameValuePair[1]);
-//            field.set(wheel, fieldEditor.getValue());
-            
-        } catch (NoSuchFieldException | SecurityException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IllegalArgumentException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        
+        ConverterUtil cu = new ConverterUtil(textValue, new Wheel());
+        cu.convert();
+        setValue(cu.getObject());
     }
 }
