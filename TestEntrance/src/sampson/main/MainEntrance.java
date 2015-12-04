@@ -9,12 +9,13 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.PropertyEditorRegistry;
+import org.springframework.beans.PropertyEditorRegistrySupport;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Configuration;
 import org.xml.sax.SAXException;
 
-import sampson.convert.converter.WheelEditor;
 import sampson.file.XmlFileParser;
 import sampson.test.Tester;
 
@@ -32,10 +33,12 @@ public class MainEntrance {
         String configFile = "resources\\config.xml";
         String testerFile = "resources\\tester.xml";
         try (AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext()) {
+            // Prepare environment
             List<Class<?>> configClassList = MainEntrance.readConfigClass(configFile);
             configClassList.add(sampson.main.AppConfig.class);
             registerConfigClass(ctx, configClassList);
             List<Tester> testBeanList = MainEntrance.readTestBeans(ctx, testerFile);
+            // Do real test
             testBeanList.stream().forEach(TestExecuter::execute);
             testBeanList.stream().forEach(TestExecuter::clear);
         } catch (Exception e) {

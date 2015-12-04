@@ -46,20 +46,19 @@ public class ConverterUtil {
     @SuppressWarnings("unchecked")
     private void setPropertyValue(String nameValueStr) {
         Object obj = this.getObject();
-        if (obj == null || !(obj instanceof Wheel)) {
+        if (obj == null) {
             logger.error("Try to apply '{}' to wrong class '{}'", obj.getClass().getName());
             return;
         }
         
-        Wheel wheel = (Wheel) obj;
         String[] nameValuePair = nameValueStr.split(":");
         if (nameValuePair.length != 2) {
-            logger.error("Wrong name-value pair format '{}' for class {}", nameValueStr, wheel.getClass().getName());
+            logger.error("Wrong name-value pair format '{}' for class {}", nameValueStr, obj.getClass().getName());
             return;
         }
         
         try {
-            Field field = wheel.getClass().getDeclaredField(nameValuePair[0]);
+            Field field = obj.getClass().getDeclaredField(nameValuePair[0]);
             field.setAccessible(true);
             Object fieldValue = null;
             if (field.getType() == BigDecimal.class) {
@@ -67,7 +66,7 @@ public class ConverterUtil {
             } else if (field.getType().isEnum()) {
                 fieldValue = Enum.valueOf((Class<Enum>)field.getType(), nameValuePair[1]);
             }
-            field.set(wheel, fieldValue);
+            field.set(obj, fieldValue);
             
         } catch (NoSuchFieldException | SecurityException e) {
             // TODO Auto-generated catch block

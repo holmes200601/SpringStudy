@@ -25,5 +25,4 @@ public class EngineEditor extends PropertyEditorSupport implements PropertyEdito
         cu.convert();
         setValue(cu.getObject());
     }
-
 }
