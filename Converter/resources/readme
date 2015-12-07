@@ -6,7 +6,7 @@ registering and another is deined in the same package with the customed-object p
 
 *** Test for ConversionService ***
 	Since conversionService would override the default conversion system based on PropertyEditor, 
-we have to use the @Profile mechanism to test this conversion syestem and above system.
+we have to use the @Profile mechanism to test this conversion system and above system.
 	Redo above test by using ConversionService.
 
 *** Test for Formatter ***

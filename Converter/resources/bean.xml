@@ -14,5 +14,14 @@
 	
 
 	<!-- define xml-base beans here if needed-->
+	<bean name="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+		<property name="converters">
+			<set>
+				<bean class="sampson.convert.converter.WheelConverter" />
+				<bean class="sampson.convert.converter.EngineConverter" />
+				<bean class="sampson.convert.converter.CarConverter" />
+			</set>
+		</property>
+	</bean>
 
 </beans>
