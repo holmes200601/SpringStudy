@@ -20,8 +20,24 @@ public class CarConverter implements GenericConverter {
 
     @Override
     public Object convert(Object source, TypeDescriptor sourceType, TypeDescriptor targetType) {
+        Object result = this.constructDefaultTarget(targetType);
+        ConverterUtil cu = new ConverterUtil((String)source, result);
+        cu.convert();
         
-        return null;
+        return result;
+    }
+    
+    private Object constructDefaultTarget(TypeDescriptor targetType) {
+        Object result = null;
+
+        try {
+            result = targetType.getObjectType().newInstance();
+        } catch (InstantiationException | IllegalAccessException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return result;
     }
 
 }

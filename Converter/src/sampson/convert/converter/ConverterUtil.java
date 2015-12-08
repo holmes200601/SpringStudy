@@ -2,13 +2,12 @@ package sampson.convert.converter;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import sampson.convert.bean.MaterialEnum;
-import sampson.convert.bean.Wheel;
 import sampson.string.StringUtil;
 
 public class ConverterUtil {
@@ -16,6 +15,24 @@ public class ConverterUtil {
     
     private String textValue;
     private Object object;
+    
+    private class NameValueProperty {
+        String name;
+        String value;
+        
+        public NameValueProperty(String name, String value) {
+            this.name = name;
+            this.value = value;
+        }
+        
+        public String getName() {
+            return this.name;
+        }
+        
+        public String getValue() {
+            return this.value;
+        }
+    }
     
     public ConverterUtil(String stringValue, Object obj) {
         this.object = obj;
@@ -39,32 +56,30 @@ public class ConverterUtil {
             return;
         }
         
-        List<String> propertyList = StringUtil.split(textValue, ";");
+        List<NameValueProperty> propertyList = clarifyProperties(textValue);
         propertyList.stream().forEach(this::setPropertyValue);
     }
     
     @SuppressWarnings("unchecked")
-    private void setPropertyValue(String nameValueStr) {
+    private void setPropertyValue(NameValueProperty nameValuePair) {
         Object obj = this.getObject();
         if (obj == null) {
             logger.error("Try to apply '{}' to wrong class '{}'", obj.getClass().getName());
             return;
         }
         
-        String[] nameValuePair = nameValueStr.split(":");
-        if (nameValuePair.length != 2) {
-            logger.error("Wrong name-value pair format '{}' for class {}", nameValueStr, obj.getClass().getName());
-            return;
-        }
-        
         try {
-            Field field = obj.getClass().getDeclaredField(nameValuePair[0]);
+            Field field = obj.getClass().getDeclaredField(nameValuePair.getName());
             field.setAccessible(true);
             Object fieldValue = null;
             if (field.getType() == BigDecimal.class) {
-                fieldValue = new BigDecimal(nameValuePair[1]);
+                fieldValue = new BigDecimal(nameValuePair.getValue());
             } else if (field.getType().isEnum()) {
-                fieldValue = Enum.valueOf((Class<Enum>)field.getType(), nameValuePair[1]);
+                fieldValue = Enum.valueOf((Class<Enum>)field.getType(), nameValuePair.getValue());
+            } else {
+                ConverterUtil cu = new ConverterUtil(nameValuePair.getValue(), field.getType().newInstance());
+                cu.convert();
+                fieldValue = cu.getObject();
             }
             field.set(obj, fieldValue);
             
@@ -77,6 +92,47 @@ public class ConverterUtil {
         } catch (IllegalAccessException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        } catch (InstantiationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
+    }
+    
+    private List<NameValueProperty> clarifyProperties(String objStr) {
+        List<NameValueProperty> result = new ArrayList<NameValueProperty>();
+        
+        int start = 0;
+        while (start < objStr.length()) {
+            start = calculatePropertyStartIndex(start, objStr);
+            if (start >= objStr.length()) {
+                logger.error("Invalid object string '{}' for class '{}'", objStr, getObject().getClass().getName());
+                throw new IllegalArgumentException();
+            }
+            int end = calculatePropertyEndIndex(start, objStr);
+            result.add(objStr.substring(start, end));
+            start = end + 1;
+        }
+        
+        return result;
+    }
+    
+    private int calculatePropertyStartIndex(int start, String objStr) {
+        int realStart = 0;
+        
+        for (realStart = start; (realStart < objStr.length()) && !isPropertyStartChar(objStr.charAt(realStart)); ++realStart) {}
+        
+        return realStart;
+    }
+    
+    private boolean isPropertyStartChar(char ch) {
+        return ((ch >= 'a' && ch <='z') || (ch >= 'A' && ch <= 'Z'));
+    }
+    
+    private int calculatePropertyEndIndex(int start, String objStr) {
+        int end = start;
+        
+        
+        
+        return end;
     }
 }
