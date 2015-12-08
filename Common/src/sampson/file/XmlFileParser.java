@@ -13,7 +13,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import sampson.string.StringUtil;
+import sampson.string.util.StringUtil;
 
 public class XmlFileParser {
     private String xmlFileName = null;

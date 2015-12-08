@@ -8,31 +8,15 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import sampson.string.StringUtil;
+import sampson.string.object.NameValueProperty;
+import sampson.string.object.StringObjectResolver;
+import sampson.string.util.StringUtil;
 
 public class ConverterUtil {
     private static Logger logger = LoggerFactory.getLogger(ConverterUtil.class);
     
     private String textValue;
     private Object object;
-    
-    private class NameValueProperty {
-        String name;
-        String value;
-        
-        public NameValueProperty(String name, String value) {
-            this.name = name;
-            this.value = value;
-        }
-        
-        public String getName() {
-            return this.name;
-        }
-        
-        public String getValue() {
-            return this.value;
-        }
-    }
     
     public ConverterUtil(String stringValue, Object obj) {
         this.object = obj;
@@ -99,40 +83,9 @@ public class ConverterUtil {
     }
     
     private List<NameValueProperty> clarifyProperties(String objStr) {
-        List<NameValueProperty> result = new ArrayList<NameValueProperty>();
+        StringObjectResolver resolver = new StringObjectResolver(objStr);
+        resolver.resolve();       
         
-        int start = 0;
-        while (start < objStr.length()) {
-            start = calculatePropertyStartIndex(start, objStr);
-            if (start >= objStr.length()) {
-                logger.error("Invalid object string '{}' for class '{}'", objStr, getObject().getClass().getName());
-                throw new IllegalArgumentException();
-            }
-            int end = calculatePropertyEndIndex(start, objStr);
-            result.add(objStr.substring(start, end));
-            start = end + 1;
-        }
-        
-        return result;
-    }
-    
-    private int calculatePropertyStartIndex(int start, String objStr) {
-        int realStart = 0;
-        
-        for (realStart = start; (realStart < objStr.length()) && !isPropertyStartChar(objStr.charAt(realStart)); ++realStart) {}
-        
-        return realStart;
-    }
-    
-    private boolean isPropertyStartChar(char ch) {
-        return ((ch >= 'a' && ch <='z') || (ch >= 'A' && ch <= 'Z'));
-    }
-    
-    private int calculatePropertyEndIndex(int start, String objStr) {
-        int end = start;
-        
-        
-        
-        return end;
+        return resolver.getResult();
     }
 }

@@ -1,4 +1,4 @@
-package sampson.string;
+package sampson.string.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
