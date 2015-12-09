@@ -3,12 +3,6 @@ package sampson.string.object;
 public class FindComplexValueState implements ResolverState {
 
 	@Override
-	public void eatNullChar() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void eatCharacter(char ch) {
 		// TODO Auto-generated method stub
 

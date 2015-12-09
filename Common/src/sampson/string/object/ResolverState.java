@@ -1,7 +1,6 @@
 package sampson.string.object;
 
 public interface ResolverState {
-	public void eatNullChar();
 	public void eatCharacter(char ch);
 	public void eatWhiteSpace(char ch);
 	public void eatNameSeparator(char ch);
