@@ -50,4 +50,10 @@ public class FindComplexValueEndState implements ResolverState {
 
 	}
 
+    @Override
+    public void setObjectResolver(StringObjectResolver objResolver) {
+        // TODO Auto-generated method stub
+        
+    }
+
 }

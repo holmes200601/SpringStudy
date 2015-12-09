@@ -50,4 +50,10 @@ public class FindValueState implements ResolverState {
 
 	}
 
+    @Override
+    public void setObjectResolver(StringObjectResolver objResolver) {
+        // TODO Auto-generated method stub
+        
+    }
+
 }

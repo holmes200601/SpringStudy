@@ -9,4 +9,5 @@ public interface ResolverState {
 	public void eatSubPropertyBeginer(char ch);
 	public void eatSubPropertyEnder(char ch);
 	public void eatUnknownCharacter(char ch);
+	public void setObjectResolver(StringObjectResolver objResolver);
 }
