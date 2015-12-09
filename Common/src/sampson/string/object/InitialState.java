@@ -1,53 +1,29 @@
 package sampson.string.object;
 
-public class InitialState implements ResolverState {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+public class InitialState extends ResolverState {
+	private final static Logger logger = LoggerFactory.getLogger(InitialState.class);
+	
 	@Override
 	public void eatCharacter(char ch) {
-		// TODO Auto-generated method stub
-
+		/* Append the char to propName */
+		appendCharToPropertyName(ch);
+		
+		/* Change state to FindNameState */
+		getObjectResolver().switchToFindNameState();
 	}
 
 	@Override
 	public void eatWhiteSpace(char ch) {
-		// TODO Auto-generated method stub
-
+		/* Do nothing for white space char */
+		logger.debug("Eat whitespace char '{}' for InitialState", ch);
 	}
 
 	@Override
-	public void eatNameSeparator(char ch) {
-		// TODO Auto-generated method stub
-
+	public Logger getLogger() {
+		return this.logger;
 	}
-
-	@Override
-	public void eatPropertySeparator(char ch) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void eatSubPropertyBeginer(char ch) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void eatSubPropertyEnder(char ch) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void eatUnknownCharacter(char ch) {
-		// TODO Auto-generated method stub
-
-	}
-
-    @Override
-    public void setObjectResolver(StringObjectResolver objResolver) {
-        // TODO Auto-generated method stub
-        
-    }
 
 }

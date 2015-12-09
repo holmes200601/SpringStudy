@@ -6,6 +6,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import sampson.string.util.StringUtil;
+
 public class StringObjectResolver {
 	private final static Logger logger = LoggerFactory.getLogger(StringObjectResolver.class);
 
@@ -24,7 +26,7 @@ public class StringObjectResolver {
 	
 	public StringObjectResolver(String textStr) {
 		this.inputStr = new String(textStr);
-		this.setCurrentState(initialState);
+		
 		this.initialState.setObjectResolver(this);
 		this.findValueState.setObjectResolver(this);
 		this.findValueEndState.setObjectResolver(this);
@@ -32,6 +34,7 @@ public class StringObjectResolver {
 		this.findSimpleValueState.setObjectResolver(this);
 		this.findComplexValueEndState.setObjectResolver(this);
 		this.findComplexValueState.setObjectResolver(this);
+		this.setCurrentState(initialState);		
 	}
 	
 	public void resolve() {
@@ -74,6 +77,38 @@ public class StringObjectResolver {
 	    }
 	    
 		return this.result;
+	}	
+	
+	protected void switchToInitialState() {
+		this.setCurrentState(this.getInitialState());
+	}	
+	
+	protected void switchToFindValueState() {
+		if (StringUtil.isNullString(this.propName)) {
+			logger.error("No property name was found.");
+			throw new RuntimeException("No property name was found.");
+		}
+		this.setCurrentState(this.getFindValueState());
+	}	
+	
+	protected void switchToFindValueEndState() {
+		this.setCurrentState(this.getFindValueEndState());
+	}	
+	
+	protected void switchToFindNameState() {
+		this.setCurrentState(this.getFindNameState());
+	}	
+	
+	protected void switchToFindSimpleValueState() {
+		this.setCurrentState(this.getFindSimpleValueState());
+	}	
+	
+	protected void switchToFindComplexValueState() {
+		this.setCurrentState(this.getFindComplexValueState());
+	}		
+	
+	protected void switchToFindComplexValueEndState() {
+		this.setCurrentState(this.getFindComplexValueEndState());
 	}
 	
 	protected ResolverState getCurrentState() {
@@ -102,8 +137,7 @@ public class StringObjectResolver {
 	
 	protected enum CharTypeEnum {
 	    CHAR_CHAR, NAMESPE_CHAR, PROPSPE_CHAR, SUBBEGIN_CHAR, SUBENDER_CHAR, UNKNOWN_CHAR
-	}
-	
+	}	
 	
 	protected CharTypeEnum charType(char ch) {
 	    CharTypeEnum result = CharTypeEnum.UNKNOWN_CHAR;
@@ -143,6 +177,44 @@ public class StringObjectResolver {
 	
 	protected boolean isSubPropEnder(char ch) {
 	    return ch == ';';
+	}
+	
+	protected void pushNameValuePair() {
+		if (StringUtil.isNullString(this.propName) || StringUtil.isNullString(this.propValue)) {
+			logger.error("Invalid propName-propValue pair found. {'{}'-'{}'}", this.propName, this.propValue);
+			throw new RuntimeException("Invalid propName-propValue pair found.");
+		}
+		
+		this.result.add(new NameValueProperty(this.propName, this.propValue));
+	}
+
+	/* private method */
+	private ResolverState getFindComplexValueState() {
+		return findComplexValueState;
+	}
+	
+	private ResolverState getInitialState() {
+		return initialState;
+	}
+	
+	private ResolverState getFindValueState() {
+		return findValueState;
+	}
+	
+	private ResolverState getFindValueEndState() {
+		return findValueEndState;
+	}
+	
+	private ResolverState getFindNameState() {
+		return findNameState;
+	}
+	
+	private ResolverState getFindSimpleValueState() {
+		return findSimpleValueState;
+	}
+	
+	private ResolverState getFindComplexValueEndState() {
+		return findComplexValueEndState;
 	}
 	
 }

@@ -1,6 +1,6 @@
 package sampson.string.object;
 
-public class FindValueEndState implements ResolverState {
+public class FindValueEndState extends ResolverState {
 
 	@Override
 	public void eatCharacter(char ch) {
@@ -43,11 +43,5 @@ public class FindValueEndState implements ResolverState {
 		// TODO Auto-generated method stub
 
 	}
-
-    @Override
-    public void setObjectResolver(StringObjectResolver objResolver) {
-        // TODO Auto-generated method stub
-        
-    }
 
 }

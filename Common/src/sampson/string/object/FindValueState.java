@@ -1,29 +1,25 @@
 package sampson.string.object;
 
-public class FindValueState implements ResolverState {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import sampson.string.util.StringUtil;
+
+public class FindValueState extends ResolverState {
+	private final static Logger logger = LoggerFactory.getLogger(FindValueState.class);
+	
 	@Override
 	public void eatCharacter(char ch) {
-		// TODO Auto-generated method stub
-
+		/* Append the char to property value */
+		appendCharToPropertyValue(ch);
+		
+		/* Switch to FindSimpleValueState */
+		getObjectResolver().switchToFindSimpleValueState();
 	}
 
 	@Override
 	public void eatWhiteSpace(char ch) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void eatNameSeparator(char ch) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void eatPropertySeparator(char ch) {
-		// TODO Auto-generated method stub
-
+		getLogger().debug("Eat white space char '{}' in '{}'", ch, getClass().getSimpleName());
 	}
 
 	@Override
@@ -44,10 +40,10 @@ public class FindValueState implements ResolverState {
 
 	}
 
-    @Override
-    public void setObjectResolver(StringObjectResolver objResolver) {
-        // TODO Auto-generated method stub
-        
-    }
+	@Override
+	public Logger getLogger() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

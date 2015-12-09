@@ -1,53 +1,27 @@
 package sampson.string.object;
 
-public class FindNameState implements ResolverState {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+public class FindNameState extends ResolverState {
+	private final static Logger logger = LoggerFactory.getLogger(FindNameState.class);
+	
 	@Override
 	public void eatCharacter(char ch) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void eatWhiteSpace(char ch) {
-		// TODO Auto-generated method stub
-
+		/* Append character */
+		appendCharToPropertyName(ch);
 	}
 
 	@Override
 	public void eatNameSeparator(char ch) {
-		// TODO Auto-generated method stub
-
+		/* Change to FindValueState */
+		getObjectResolver().switchToFindValueState();
 	}
 
 	@Override
-	public void eatPropertySeparator(char ch) {
+	public Logger getLogger() {
 		// TODO Auto-generated method stub
-
+		return this.logger;
 	}
-
-	@Override
-	public void eatSubPropertyBeginer(char ch) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void eatSubPropertyEnder(char ch) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void eatUnknownCharacter(char ch) {
-		// TODO Auto-generated method stub
-
-	}
-
-    @Override
-    public void setObjectResolver(StringObjectResolver objResolver) {
-        // TODO Auto-generated method stub
-        
-    }
 
 }
