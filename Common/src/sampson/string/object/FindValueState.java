@@ -24,26 +24,23 @@ public class FindValueState extends ResolverState {
 
 	@Override
 	public void eatSubPropertyBeginer(char ch) {
-		// TODO Auto-generated method stub
-
+		/* Switch to FindComplexValueState */
+	    getObjectResolver().switchToFindComplexValueState();
 	}
 
 	@Override
-	public void eatSubPropertyEnder(char ch) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void eatUnknownCharacter(char ch) {
-		// TODO Auto-generated method stub
-
+	public void eatNumberCharacter(char ch) {
+	    /* Append the char to property value */
+	    appendCharToPropertyValue(ch);
+	    
+	    /* Switch to FindSimpleValueState */
+	    getObjectResolver().switchToFindSimpleValueState();
 	}
 
 	@Override
 	public Logger getLogger() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.logger;
 	}
 
 }

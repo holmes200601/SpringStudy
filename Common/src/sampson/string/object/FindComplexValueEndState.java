@@ -1,47 +1,26 @@
 package sampson.string.object;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class FindComplexValueEndState extends ResolverState {
-
-	@Override
-	public void eatCharacter(char ch) {
-		// TODO Auto-generated method stub
-
-	}
+    private final static Logger logger = LoggerFactory.getLogger(FindComplexValueEndState.class);
 
 	@Override
 	public void eatWhiteSpace(char ch) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void eatNameSeparator(char ch) {
-		// TODO Auto-generated method stub
+		/* Do nothing */
 
 	}
 
 	@Override
 	public void eatPropertySeparator(char ch) {
-		// TODO Auto-generated method stub
-
+		/* Switch to FindValueEndState */
+	    this.getObjectResolver().switchToFindValueEndState();
 	}
 
-	@Override
-	public void eatSubPropertyBeginer(char ch) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void eatSubPropertyEnder(char ch) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void eatUnknownCharacter(char ch) {
-		// TODO Auto-generated method stub
-
-	}
+    @Override
+    public Logger getLogger() {
+        return this.logger;
+    }
 
 }

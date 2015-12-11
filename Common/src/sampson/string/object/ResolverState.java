@@ -31,13 +31,18 @@ public abstract class ResolverState {
 	}
 	
 	public void eatSubPropertyEnder(char ch) {
-		getLogger().error("Eat character '{}' for '{}'", ch, getClass().getSimpleName());;
+		getLogger().error("Eat character '{}' for '{}'", ch, getClass().getSimpleName());
 		throw new RuntimeException("Should not eat sub-property ender for " + getClass().getSimpleName());
 	}
 	
 	public void eatUnknownCharacter(char ch) {
 		getLogger().error("Eat character '{}' for '{}'", ch, getClass().getSimpleName());;
 		throw new RuntimeException("Should not eat unknown character for " + getClass().getSimpleName());
+	}
+	
+	public void eatNumberCharacter(char ch) {
+	    getLogger().error("Eat character '{}' for '{}'", ch, getClass().getSimpleName());
+	    throw new RuntimeException("Should not eat unknown character for " + getClass().getSimpleName());
 	}
 	
 	public void setObjectResolver(StringObjectResolver objResolver) {

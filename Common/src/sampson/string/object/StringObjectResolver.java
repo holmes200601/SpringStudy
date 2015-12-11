@@ -19,6 +19,7 @@ public class StringObjectResolver {
 	private ResolverState findValueState = new FindValueState();
 	private ResolverState findValueEndState = new FindValueEndState();
 	private ResolverState findNameState = new FindNameState();
+	private ResolverState findNameEndState = new FindNameEndState();
 	private ResolverState findSimpleValueState = new FindSimpleValueState();
 	private ResolverState findComplexValueState = new FindComplexValueState();
 	private ResolverState findComplexValueEndState = new FindComplexValueEndState();
@@ -64,10 +65,18 @@ public class StringObjectResolver {
 		    case UNKNOWN_CHAR:
 		        this.getCurrentState().eatUnknownCharacter(ch);
 		        break;
+		    case NUMBER_CHAR:
+		        this.getCurrentState().eatNumberCharacter(ch);
+		        break;
 		    default:
 		        logger.error("Unknown character type '{}' when resolving string '{}'", charType(ch).toString(), inputStr);
 		        break;
 		    }
+		}
+		
+		if (this.getCurrentState() != this.getFindValueEndState()) {
+		    logger.error("Final status is '{}', not '{}'", this.getCurrentState(), this.getFindValueEndState());
+		    throw new RuntimeException("Final status is not right");
 		}
 	}
 	
@@ -88,10 +97,22 @@ public class StringObjectResolver {
 			logger.error("No property name was found.");
 			throw new RuntimeException("No property name was found.");
 		}
+		
+		if (getCurrentState() != getFindNameState() && getCurrentState() != getFindNameEndState()) {
+		    logger.error("Can't switch from '{}' to '{}", getCurrentState().toString(), getFindValueState().toString());
+		    throw new RuntimeException("Can't switch to 'FindValueState'");
+		}
+		
 		this.setCurrentState(this.getFindValueState());
 	}	
 	
 	protected void switchToFindValueEndState() {
+	    if (getCurrentState() != getFindSimpleValueState() && getCurrentState() != getFindComplexValueEndState()) {
+	        logger.error("Can't switch from '{}' to '{}", getCurrentState().toString(), getFindValueState().toString());
+            throw new RuntimeException("Can't switch to 'FindValueEndState'");
+	    }
+	    
+	    this.pushNameValuePair();
 		this.setCurrentState(this.getFindValueEndState());
 	}	
 	
@@ -100,15 +121,34 @@ public class StringObjectResolver {
 	}	
 	
 	protected void switchToFindSimpleValueState() {
+	    /* Check property name is valid */
+	    if (!checkValidPropName()) {
+	        logger.error("Property name '{}' is not valid before switching to '{}'.", getPropName(), getFindSimpleValueState().toString());
+	        throw new RuntimeException("Can't switch to 'FindSimpleValueState'");
+	    }
 		this.setCurrentState(this.getFindSimpleValueState());
 	}	
 	
 	protected void switchToFindComplexValueState() {
+	    if (this.getCurrentState() != this.getFindValueState()) {
+	        logger.error("Can't switch from '{}' to '{}'", getCurrentState(), getFindComplexValueState().toString());
+	        throw new RuntimeException("Can't switch to 'FindComplexValueState'.");
+	    }
+	    
+	    ((FindComplexValueState)getFindComplexValueState()).increaseSubPropertyNum();
 		this.setCurrentState(this.getFindComplexValueState());
 	}		
 	
 	protected void switchToFindComplexValueEndState() {
 		this.setCurrentState(this.getFindComplexValueEndState());
+	}
+	
+	protected void switchToFindNameEndState() {
+	    if (this.getCurrentState() != this.getFindNameState()) {
+	        logger.error("Can't switch from '{}' to '{}'", getCurrentState(), getFindComplexValueState().toString());
+            throw new RuntimeException("Can't switch to 'FindNameState'.");
+	    }
+	    this.setCurrentState(this.getFindNameEndState());
 	}
 	
 	protected ResolverState getCurrentState() {
@@ -136,7 +176,7 @@ public class StringObjectResolver {
 	}
 	
 	protected enum CharTypeEnum {
-	    CHAR_CHAR, NAMESPE_CHAR, PROPSPE_CHAR, SUBBEGIN_CHAR, SUBENDER_CHAR, UNKNOWN_CHAR
+	    CHAR_CHAR, NUMBER_CHAR, NAMESPE_CHAR, PROPSPE_CHAR, SUBBEGIN_CHAR, SUBENDER_CHAR, UNKNOWN_CHAR
 	}	
 	
 	protected CharTypeEnum charType(char ch) {
@@ -152,7 +192,10 @@ public class StringObjectResolver {
 	        result = CharTypeEnum.SUBBEGIN_CHAR;
 	    } else if (isSubPropEnder(ch)) {
 	        result = CharTypeEnum.SUBENDER_CHAR;
-	    } else {
+	    } else if (isNumberChar(ch)) {
+	        result = CharTypeEnum.NUMBER_CHAR;
+	    }
+	    else {
 	        result = CharTypeEnum.UNKNOWN_CHAR;
 	    }
 	        
@@ -176,7 +219,11 @@ public class StringObjectResolver {
 	}
 	
 	protected boolean isSubPropEnder(char ch) {
-	    return ch == ';';
+	    return ch == '}';
+	}
+	
+	protected boolean isNumberChar(char ch) {
+	    return (ch >= '0' && ch <= '9');
 	}
 	
 	protected void pushNameValuePair() {
@@ -186,6 +233,8 @@ public class StringObjectResolver {
 		}
 		
 		this.result.add(new NameValueProperty(this.propName, this.propValue));
+		this.propName = "";
+		this.propValue = "";
 	}
 
 	/* private method */
@@ -217,4 +266,17 @@ public class StringObjectResolver {
 		return findComplexValueEndState;
 	}
 	
+	private ResolverState getFindNameEndState() {
+        return findNameEndState;
+    }
+	
+	private boolean checkValidPropName() {
+	    return (!StringUtil.isNullString(getPropName()));
+	}
+	
+	private boolean checkValidPropValue() {
+	    return (!StringUtil.isNullString(getPropValue()));
+	}
+
+    
 }

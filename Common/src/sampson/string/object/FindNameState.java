@@ -19,6 +19,18 @@ public class FindNameState extends ResolverState {
 	}
 
 	@Override
+	public void eatNumberCharacter(char ch) {
+	    /* Append character */
+	    appendCharToPropertyName(ch);
+	}
+	
+	@Override
+	public void eatWhiteSpace(char ch) {
+	    /* Switch to FinNameEndState */
+	    getObjectResolver().switchToFindNameEndState();
+	}
+	
+	@Override
 	public Logger getLogger() {
 		// TODO Auto-generated method stub
 		return this.logger;
