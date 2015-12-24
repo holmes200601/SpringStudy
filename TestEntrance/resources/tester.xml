@@ -6,7 +6,7 @@
 	</config>
 	 -->
 	<config>
-		<project>Converter</project>
-		<test-bean-name>converterTester</test-bean-name>
+		<project>JdbcDao</project>
+		<test-bean-name>jdbcTester</test-bean-name>
 	</config>
 </test-configs>

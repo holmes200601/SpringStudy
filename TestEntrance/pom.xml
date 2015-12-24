@@ -75,6 +75,11 @@
 			<artifactId>Converter</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>JdbcDao</groupId>
+			<artifactId>JdbcDao</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<build>

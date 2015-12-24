@@ -6,7 +6,7 @@
 	</config>
 	 -->
 	<config>
-		<project>Converter</project>
-		<path>sampson.convert.converter.AppConfig</path>
+		<project>JdbcDao</project>
+		<path>sampson.jdbcdao.AppConfig</path>
 	</config>
 </project-configs>
