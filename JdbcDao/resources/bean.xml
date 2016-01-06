@@ -2,18 +2,41 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:context="http://www.springframework.org/schema/context"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd
+    xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+    xsi:schemaLocation=
+    	"http://www.springframework.org/schema/beans
+    	http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context.xsd">
+		http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/jdbc
+		http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
 
 	<!-- include this line to use annotation  -->
 	<!-- <context:annotation-config base-package="sampson.bean"/> -->
 	<context:component-scan base-package="sampson.jdbcdao" />
-	<!-- <context:property-placeholder location="classpath:jdbc.properties" />  -->
+	<context:property-placeholder location="classpath:jdbc.properties" />
 	
+	<!-- database initial script -->
+	<jdbc:initialize-database data-source="dbcpDataSource">
+		<jdbc:script location="${jdbc.initScript}" />
+	</jdbc:initialize-database>
 
-	<!-- define xml-base beans here if needed-->
+	<!-- MysqlConnectionPoolDataSource -->
+	<bean id="mysqlConnectionPoolDataSource" class="com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource">
+		<!-- <property name="mysqlDriver" value="${jdbc.driverName})" />  -->
+		<property name="url" value="${jdbc.url}" />
+		<property name="user" value="${jdbc.userName}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
 	
-
+	<!-- DBCP PerUserPoolDataSource -->
+	<bean id="dbcpDataSource" class="org.apache.commons.dbcp2.datasources.PerUserPoolDataSource" destroy-method="close">
+		<property name="connectionPoolDataSource" ref="mysqlConnectionPoolDataSource" />
+		<property name="description" value="True used data source by application layer." />
+	</bean>
+	
+	<!-- NamedParameterJdbcTemplate -->
+	<bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+		<constructor-arg ref="dbcpDataSource" />
+	</bean>
 </beans>

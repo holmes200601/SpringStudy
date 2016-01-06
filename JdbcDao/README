@@ -1,0 +1,15 @@
+This project mainly tests the following spring support for JDBC
+---Run initial script to initial database
+---pooling connection provided by common-dbcp
+---Access mysql with NamedParameterJdbcTemplate
+---Access mysql with RDBMS-object technology
+---Store/read BLOB & CLOB into/from mysql
+
+Test Case Design
+	In initDatabase.sql, create a database named "eshop" when spring container is in bean injection phase
+	Define the following object: Shop, Employee, Customer, Product, SalesOrder
+	In prepare phase, read all objects from bean-class-register.xml file and create corresponding table for them in the database
+	In test phase, read properties from bean-instatnce.xml file and insert them into the corresponding tables and then read them from database and print them out
+	In clear phase, revert the database to the clean status
+	 
+	

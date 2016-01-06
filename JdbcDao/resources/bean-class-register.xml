@@ -1,0 +1,7 @@
+<Classes>
+	<Class>sampson.jdbcdao.Customer</Class>
+	<Class>sampson.jdbcdao.Employee</Class>
+	<Class>sampson.jdbcdao.Eshop</Class>
+	<Class>sampson.jdbcdao.Product</Class>
+	<Class>sampson.jdbcdao.SalesOrder</Class>
+</Classes>
