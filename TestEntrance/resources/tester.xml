@@ -6,7 +6,7 @@
 	</config>
 	 -->
 	<config>
-		<project>JdbcDao</project>
-		<test-bean-name>jdbcTester</test-bean-name>
+		<project>Hibernate-xml</project>
+		<test-bean-name>hibernateXmlTester</test-bean-name>
 	</config>
 </test-configs>

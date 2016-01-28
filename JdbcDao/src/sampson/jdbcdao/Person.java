@@ -9,7 +9,7 @@ public class Person {
     @Property
     private String name;
     
-    @Property(type = "BLOB")
+    @Property(type = "LONGBLOB")
     private byte[] image;
 
     public Long getId() {

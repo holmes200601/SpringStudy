@@ -6,7 +6,7 @@
 	</config>
 	 -->
 	<config>
-		<project>JdbcDao</project>
-		<path>sampson.jdbcdao.AppConfig</path>
+		<project>Hibernate-xml</project>
+		<path>sampson.hibernate.AppConfig</path>
 	</config>
 </project-configs>

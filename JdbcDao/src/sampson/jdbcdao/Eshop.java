@@ -10,7 +10,7 @@ public class Eshop {
     @Property
     private String location;
     
-    @Property(type = "BLOB")
+    @Property(type = "LONGBLOB")
     private byte[] logoImage;
     
     @Property(type = "TEXT")
