@@ -33,6 +33,7 @@
 		<mapping resource="sampson/hibernate/Person.hbm.xml" />
 		 -->
 		<mapping class="sampson.hibernate.Person" />
+		<mapping class="sampson.hibernate.Customer" />
 	
 	</session-factory>
 </hibernate-configuration>

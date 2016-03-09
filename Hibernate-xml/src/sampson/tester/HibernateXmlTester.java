@@ -8,6 +8,7 @@ import org.hibernate.cfg.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import sampson.hibernate.Customer;
 import sampson.hibernate.Person;
 import sampson.test.Tester;
 
@@ -47,17 +48,33 @@ public class HibernateXmlTester implements Tester {
         p1.setAge(28L);
         p1.setDebt(BigDecimal.ZERO);
         p1.setBalance(BigDecimal.TEN);        
+       
+        
+        // Add Customer
+        session = sf.getCurrentSession();
+        Customer cs = new Customer();
+        cs.setName("Amy");
+        cs.setAge(27L);
+        cs.setDebt(BigDecimal.ONE);
+        cs.setBalance(BigDecimal.TEN);
+        cs.setVip(true);
+        cs.setConsumeAmount(BigDecimal.valueOf(1000));
+        
+        // Add Customer to Person
+        p1.getTeamMembers().add(cs);
+        
         session.save(p1);
         session.getTransaction().commit();
-        // Test read
+        
+        // cascade
         session = sf.getCurrentSession();
         session.getTransaction().begin();
-        Person p2 = (Person) session.createQuery("select p2 from Person p2 where p2.id = :idParam")
-                .setParameter("idParam", 1L).uniqueResult();
-        //p2.setAge(30L);
-        result = p1.getId().compareTo(p2.getId()) == 0;
+        Person pLoad = session.load(Person.class, Long.valueOf(1));
+        pLoad.getTeamMembers().clear();
         
-        session.getTransaction().rollback();
+        session.flush();
+        
+        session.getTransaction().commit();
         
         return result;
     }
