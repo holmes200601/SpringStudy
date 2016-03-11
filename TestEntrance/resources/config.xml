@@ -4,9 +4,13 @@
 		<project>Resource</project>
 		<path>sampson.resource.AppConfig</path>
 	</config>
-	 -->
 	<config>
 		<project>Hibernate-xml</project>
 		<path>sampson.hibernate.AppConfig</path>
+	</config>
+	-->
+	<config>
+		<project>SpringHibernate</project>
+		<path>restaurant.conf.AppConfig</path>
 	</config>
 </project-configs>

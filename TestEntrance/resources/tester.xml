@@ -4,9 +4,13 @@
 		<project>Resource</project>
 		<test-bean-name>resourceTester</test-bean-name>
 	</config>
-	 -->
 	<config>
 		<project>Hibernate-xml</project>
 		<test-bean-name>hibernateXmlTester</test-bean-name>
 	</config>
+	 -->
+	 <config>
+	 	<project>SpringHibernate</project>
+	 	<test-bean-name>springHibernateTester</test-bean-name>
+	 </config>
 </test-configs>

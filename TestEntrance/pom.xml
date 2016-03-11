@@ -52,16 +52,29 @@
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 		</dependency>
-		-->
 		<dependency>
 			<groupId>spring.test</groupId>
 			<artifactId>DependencyInjection</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-		<!-- 
 		<dependency>
 			<groupId>Resource</groupId>
 			<artifactId>Resource</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>Hibernate-xml</groupId>
+			<artifactId>Hibernate-xml</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>Converter</groupId>
+			<artifactId>Converter</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>JdbcDao</groupId>
+			<artifactId>JdbcDao</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		 -->
@@ -70,25 +83,12 @@
 			<artifactId>Common</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-		<!-- 
 		<dependency>
-			<groupId>Converter</groupId>
-			<artifactId>Converter</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<groupId>SpringHibernate</groupId>
+  			<artifactId>SpringHibernate</artifactId>
+  			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-		 -->
-		 <!-- 
-		<dependency>
-			<groupId>JdbcDao</groupId>
-			<artifactId>JdbcDao</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		 -->
-		<dependency>
-			<groupId>Hibernate-xml</groupId>
-			<artifactId>Hibernate-xml</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
+		
 	</dependencies>
 
 	<build>
