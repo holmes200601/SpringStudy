@@ -7,6 +7,8 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 @Embeddable
@@ -53,6 +55,7 @@ public class PersonalInfo {
         this.contactInfo = contactInfo;
     }
 
+    @Temporal(TemporalType.DATE)
     public Date getBirthDay() {
         return birthDay;
     }

@@ -12,8 +12,12 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import restaurant.bean.common.DayTime;
 import restaurant.bean.common.PersonalInfo;
@@ -23,7 +27,7 @@ import restaurant.frw.RestaurantBean;
 @Access(AccessType.PROPERTY)
 public class Employee extends RestaurantBean {
     public enum LeaveReasonEnum {
-        FIRED, RUN_AWAY, FAMILY_ISSUE, ROW_BROKEN, OTHER
+        FIRED, RUN_AWAY, FAMILY_ISSUE, LAW_BROKEN, LOW_SALARY, OTHER
     }
 
     private Long id;
@@ -38,6 +42,8 @@ public class Employee extends RestaurantBean {
     private DayTime endWorkingTime;
 
     @Id
+    @GeneratedValue(generator="EmployeeSeq")
+    @SequenceGenerator(name="EmployeeSeq", allocationSize=1)
     public Long getId() {
         return id;
     }
@@ -56,19 +62,20 @@ public class Employee extends RestaurantBean {
     }
 
     @Embedded
-    @AttributeOverrides({ @AttributeOverride(name = "self_idNumber", column = @Column(name = "idNum") ),
-            @AttributeOverride(name = "self_firstName", column = @Column(name = "firstName") ),
-            @AttributeOverride(name = "self_middleName", column = @Column(name = "lastName") ),
-            @AttributeOverride(name = "self_country", column = @Column(name = "country") ),
-            @AttributeOverride(name = "self_provinces", column = @Column(name = "provinces") ),
-            @AttributeOverride(name = "self_state", column = @Column(name = "state") ),
-            @AttributeOverride(name = "self_street", column = @Column(name = "street") ),
-            @AttributeOverride(name = "self_postCode", column = @Column(name = "postCode") ),
-            @AttributeOverride(name = "self_cellPhone", column = @Column(name = "cellPhone") ),
-            @AttributeOverride(name = "self_wechatNum", column = @Column(name = "wechatNum") ),
-            @AttributeOverride(name = "self_qqNum", column = @Column(name = "qqNum") ),
-            @AttributeOverride(name = "self_email", column = @Column(name = "email") ),
-            @AttributeOverride(name = "self_birthDay", column = @Column(name = "birthDay") ) })
+    @AttributeOverrides({ @AttributeOverride(name = "idNum", column = @Column(name = "self_idNumber") ),
+            @AttributeOverride(name = "name.firstName", column = @Column(name = "self_firstName") ),
+            @AttributeOverride(name = "name.middleName", column = @Column(name = "self_middleName") ),
+            @AttributeOverride(name = "name.lastName", column = @Column(name = "self_lastName")),
+            @AttributeOverride(name = "address.country", column = @Column(name = "self_country") ),
+            @AttributeOverride(name = "address.provinces", column = @Column(name = "self_provinces") ),
+            @AttributeOverride(name = "address.state", column = @Column(name = "self_state") ),
+            @AttributeOverride(name = "address.street", column = @Column(name = "self_street") ),
+            @AttributeOverride(name = "address.postCode", column = @Column(name = "self_postCode") ),
+            @AttributeOverride(name = "contactInfo.cellPhone", column = @Column(name = "self_cellPhone") ),
+            @AttributeOverride(name = "contactInfo.wechatNum", column = @Column(name = "self_wechatNum") ),
+            @AttributeOverride(name = "contactInfo.qqNum", column = @Column(name = "self_qqNum") ),
+            @AttributeOverride(name = "contactInfo.email", column = @Column(name = "self_email") ),
+            @AttributeOverride(name = "birthDay", column = @Column(name = "self_birthDay") ) })
     public PersonalInfo getSelfInfo() {
         return selfInfo;
     }
@@ -78,19 +85,20 @@ public class Employee extends RestaurantBean {
     }
 
     @Embedded
-    @AttributeOverrides({ @AttributeOverride(name = "emrPerson_idNumber", column = @Column(name = "idNum") ),
-            @AttributeOverride(name = "emrPerson_firstName", column = @Column(name = "firstName") ),
-            @AttributeOverride(name = "emrPerson_middleName", column = @Column(name = "lastName") ),
-            @AttributeOverride(name = "emrPerson_country", column = @Column(name = "country") ),
-            @AttributeOverride(name = "emrPerson_provinces", column = @Column(name = "provinces") ),
-            @AttributeOverride(name = "emrPerson_state", column = @Column(name = "state") ),
-            @AttributeOverride(name = "emrPerson_street", column = @Column(name = "street") ),
-            @AttributeOverride(name = "emrPerson_postCode", column = @Column(name = "postCode") ),
-            @AttributeOverride(name = "emrPerson_cellPhone", column = @Column(name = "cellPhone") ),
-            @AttributeOverride(name = "emrPerson_wechatNum", column = @Column(name = "wechatNum") ),
-            @AttributeOverride(name = "emrPerson_qqNum", column = @Column(name = "qqNum") ),
-            @AttributeOverride(name = "emrPerson_email", column = @Column(name = "email") ),
-            @AttributeOverride(name = "emrPerson_birthDay", column = @Column(name = "birthDay") ) })
+    @AttributeOverrides({ @AttributeOverride(name = "idNum", column = @Column(name = "emrg_idNumber") ),
+        @AttributeOverride(name = "name.firstName", column = @Column(name = "emrg_firstName") ),
+        @AttributeOverride(name = "name.middleName", column = @Column(name = "emrg_middleName") ),
+        @AttributeOverride(name = "name.lastName", column = @Column(name = "emrg_lastName")),
+        @AttributeOverride(name = "address.country", column = @Column(name = "emrg_country") ),
+        @AttributeOverride(name = "address.provinces", column = @Column(name = "emrg_provinces") ),
+        @AttributeOverride(name = "address.state", column = @Column(name = "emrg_state") ),
+        @AttributeOverride(name = "address.street", column = @Column(name = "emrg_street") ),
+        @AttributeOverride(name = "address.postCode", column = @Column(name = "emrg_postCode") ),
+        @AttributeOverride(name = "contactInfo.cellPhone", column = @Column(name = "emrg_cellPhone") ),
+        @AttributeOverride(name = "contactInfo.wechatNum", column = @Column(name = "emrg_wechatNum") ),
+        @AttributeOverride(name = "contactInfo.qqNum", column = @Column(name = "emrg_qqNum") ),
+        @AttributeOverride(name = "contactInfo.email", column = @Column(name = "emrg_email") ),
+        @AttributeOverride(name = "birthDay", column = @Column(name = "emrg_birthDay") ) })
     public PersonalInfo getEmergencyContactPerson() {
         return emergencyContactPerson;
     }
@@ -99,6 +107,7 @@ public class Employee extends RestaurantBean {
         this.emergencyContactPerson = emergencyContactPerson;
     }
 
+    @Temporal(TemporalType.DATE)
     public Date getOnBoardDate() {
         return onBoardDate;
     }
@@ -107,6 +116,7 @@ public class Employee extends RestaurantBean {
         this.onBoardDate = onBoardDate;
     }
 
+    @Temporal(TemporalType.DATE)
     public Date getLeaveDate() {
         return leaveDate;
     }
@@ -123,7 +133,7 @@ public class Employee extends RestaurantBean {
         this.leaveReason = leaveReason;
     }
 
-    @OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, mappedBy="appliedEmployee")
+    @OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, mappedBy="owner")
     public List<SalaryRule> getSalaryRules() {
         return salaryRules;
     }
@@ -133,8 +143,8 @@ public class Employee extends RestaurantBean {
     }
 
     @Embedded
-    @AttributeOverrides({ @AttributeOverride(name = "startWorkingHour", column = @Column(name = "hour") ),
-            @AttributeOverride(name = "startWorkingMinite", column = @Column(name = "minite") ) })
+    @AttributeOverrides({ @AttributeOverride(name = "hour", column = @Column(name = "startWorkingHour_hour") ),
+            @AttributeOverride(name = "minite", column = @Column(name = "startWorkingMinite_minite") ) })
     public DayTime getStartWorkingTime() {
         return startWorkingTime;
     }
@@ -144,8 +154,8 @@ public class Employee extends RestaurantBean {
     }
 
     @Embedded
-    @AttributeOverrides({ @AttributeOverride(name = "startWorkingHour", column = @Column(name = "hour") ),
-            @AttributeOverride(name = "startWorkingMinite", column = @Column(name = "minite") ) })
+    @AttributeOverrides({ @AttributeOverride(name = "hour", column = @Column(name = "endWorkingTime_hour") ),
+            @AttributeOverride(name = "minite", column = @Column(name = "endWorkingTime_minite") ) })
     public DayTime getEndWorkingTime() {
         return endWorkingTime;
     }

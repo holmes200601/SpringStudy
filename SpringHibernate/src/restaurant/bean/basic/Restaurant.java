@@ -1,12 +1,18 @@
 package restaurant.bean.basic;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
 import restaurant.bean.common.ContactInfo;
@@ -17,10 +23,10 @@ import restaurant.frw.RestaurantBean;
 public class Restaurant extends RestaurantBean {
     private Long id;
     private String name;
-    private Employee manage;
+    private Employee manager;
     private String iconPath;
     private String comments;
-    private List<String> photoGalary;
+    private List<String> photoGalary = new ArrayList<String>();
     private ContactInfo contactInfo;
 
     @Id
@@ -42,12 +48,13 @@ public class Restaurant extends RestaurantBean {
         this.name = name;
     }
 
+    @OneToOne(targetEntity=Employee.class)
     public Employee getManage() {
-        return manage;
+        return manager;
     }
 
-    public void setManage(Employee manage) {
-        this.manage = manage;
+    public void setManage(Employee manager) {
+        this.manager = manager;
     }
 
     public String getIconPath() {
@@ -66,6 +73,9 @@ public class Restaurant extends RestaurantBean {
         this.comments = comments;
     }
 
+    @ElementCollection
+    @CollectionTable(name="Restaurant_PhotoGalary", joinColumns=@JoinColumn(name="restaurant_id"))
+    @Column(name="photo_path")
     public List<String> getPhotoGalary() {
         return photoGalary;
     }

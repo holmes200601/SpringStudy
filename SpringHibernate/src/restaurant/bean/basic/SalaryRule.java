@@ -2,19 +2,30 @@ package restaurant.bean.basic;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 
 import restaurant.frw.RestaurantBean;
 
 @Entity
+@Access(AccessType.FIELD)
 public class SalaryRule extends RestaurantBean {
+    
     @Id
+    @GeneratedValue(generator="SalaryRuleSeq")
+    @SequenceGenerator(name="SalaryRuleSeq", allocationSize=1)
     private Long id;
+    
     private SalaryRuleTypeEnum ruleType;
+    
     private BigDecimal amount;
+    
     @ManyToOne(targetEntity = Employee.class)
     @JoinColumn(name = "ownerEmployeeId")
     private Employee owner;
