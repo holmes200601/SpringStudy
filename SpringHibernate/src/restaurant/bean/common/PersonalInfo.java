@@ -11,6 +11,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import restaurant.bean.utils.TimeUtils;
+
 @Embeddable
 @Access(AccessType.PROPERTY)
 public class PersonalInfo {
@@ -70,7 +72,7 @@ public class PersonalInfo {
             return 0L;
         }
 
-        Calendar cal = Calendar.getInstance();
+        Calendar cal = TimeUtils.getCurrentCalendar();
         int currYear = cal.get(Calendar.YEAR);
         int currDay = cal.get(Calendar.DAY_OF_YEAR);
         cal.setTime(getBirthDay());

@@ -10,6 +10,16 @@ public class DayTime {
     int hour;
     int minite;
     
+    public DayTime() {
+        hour = 9;
+        minite = 0;
+    }
+    
+    public DayTime(int h, int m) {
+        hour = h;
+        minite = m;
+    }
+    
     public int getHour() {
         return hour;
     }

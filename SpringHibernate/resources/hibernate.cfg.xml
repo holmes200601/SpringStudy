@@ -29,9 +29,12 @@
 		<property name="hibernate.hbm2ddl.auto">create</property>
 		
 		<!-- Entity Mapping Definition -->
+		<!-- 
 		<mapping class="restaurant.bean.basic.Restaurant" />
 		<mapping class="restaurant.bean.basic.Employee" />
 		<mapping class="restaurant.bean.basic.SalaryRule" />
+		<mapping class="restaurant.bean.basic.SalaryEvent" />
+		 -->
 		
 	</session-factory>
 </hibernate-configuration>

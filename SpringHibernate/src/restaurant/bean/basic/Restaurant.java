@@ -16,11 +16,11 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
 import restaurant.bean.common.ContactInfo;
-import restaurant.frw.RestaurantBean;
+import restaurant.frw.bean.ApplicationBean;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Restaurant extends RestaurantBean {
+public class Restaurant extends ApplicationBean {
     private Long id;
     private String name;
     private Employee manager;
@@ -49,11 +49,11 @@ public class Restaurant extends RestaurantBean {
     }
 
     @OneToOne(targetEntity=Employee.class)
-    public Employee getManage() {
+    public Employee getManager() {
         return manager;
     }
 
-    public void setManage(Employee manager) {
+    public void setManager(Employee manager) {
         this.manager = manager;
     }
 

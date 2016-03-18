@@ -8,6 +8,16 @@ public class PersonName {
     private String middleName;
     private String lastName;
     
+    public PersonName(String f, String m, String l) {
+        this.firstName = f;
+        this.middleName = m;
+        this.lastName = l;
+    }
+    
+    public PersonName() {
+        
+    }
+    
     public String getFirstName() {
         return firstName;
     }

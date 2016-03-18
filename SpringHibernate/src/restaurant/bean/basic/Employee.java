@@ -21,11 +21,11 @@ import javax.persistence.TemporalType;
 
 import restaurant.bean.common.DayTime;
 import restaurant.bean.common.PersonalInfo;
-import restaurant.frw.RestaurantBean;
+import restaurant.frw.bean.ApplicationBean;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Employee extends RestaurantBean {
+public class Employee extends ApplicationBean {
     public enum LeaveReasonEnum {
         FIRED, RUN_AWAY, FAMILY_ISSUE, LAW_BROKEN, LOW_SALARY, OTHER
     }
@@ -37,9 +37,9 @@ public class Employee extends RestaurantBean {
     private Date onBoardDate;
     private Date leaveDate;
     private LeaveReasonEnum leaveReason;
-    private List<SalaryRule> salaryRules = new ArrayList<SalaryRule>();
     private DayTime startWorkingTime;
     private DayTime endWorkingTime;
+    private List<SalaryRule> salaryRules = new ArrayList<SalaryRule>();
 
     @Id
     @GeneratedValue(generator="EmployeeSeq")

@@ -3,14 +3,14 @@ Restaurants Design
 	Basic Information
 		Give the following information of the restaurant: name, company contact information(address, phone, telephone, wechat, qq, email), manager, comments, icon, photos 
 	
-	Asset Management
+	Asset Management(Currently ignored)
 		Manage the asset owned by this restaurant, like tables, chairs, pots... Each entity generally contain the following information: serial number, name, icon, pictures, price, quantity.
 	We also need to record the event of each asset, like asset buying, asset destruction. Each asset event might contain the following information: asset entity, event quantity(quantity before event, delta quantity, quantity after event), event time, event type(add event), comment.
 	
 	Employee Management
 		Manage employees of the restaurant. For each employee we store the following information: employee number, name, person contact information(address, phone, telephone, wechat, qq, email, id, birthday, age), emergency person contact info, on board date, leave date, leave reason, salary rules, start working time, end working time.
 	Since this part also manage the salary of employee. So here we need to define salary rules as entity. It should contain the following information: salary type(base, deduce, award, workload, hours), amount, employee. To calculate the salary of each employee, we have to log the salary event. The salary event can contain the following
-	fields: employee, salary rule, event start time, event end time, comment.	
+	fields: salary rule, event start time, event end time, comment.	
 	 
 	
 	#Sales Part#
