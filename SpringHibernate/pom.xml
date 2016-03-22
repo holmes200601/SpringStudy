@@ -17,6 +17,16 @@
 			<artifactId>Common</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<!-- Spring dependency -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>4.2.1.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+		</dependency>
 		<!-- Database dependency -->
 		<dependency>
 			<groupId>mysql</groupId>
@@ -33,6 +43,21 @@
 			<artifactId>hibernate-c3p0</artifactId>
 			<version>5.0.7.Final</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-dbcp2</artifactId>
+			<version>2.1.1</version>
+		</dependency>
 		<!-- Log dependency -->
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
@@ -41,6 +66,12 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>jcl-over-slf4j</artifactId>
+		</dependency>
+		<!-- Time Utils -->
+		<dependency>
+			<groupId>org.apache.karaf.demos.deployer.wrap</groupId>
+    		<artifactId>osgi.commons-lang</artifactId>
+    		<version>2.4.4</version>
 		</dependency>
 	</dependencies>
   

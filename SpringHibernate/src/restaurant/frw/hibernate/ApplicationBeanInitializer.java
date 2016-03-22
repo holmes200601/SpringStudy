@@ -4,8 +4,8 @@ import org.hibernate.event.spi.PostLoadEvent;
 import org.hibernate.event.spi.PostLoadEventListener;
 
 import restaurant.frw.bean.ApplicationBean;
-import restaurant.frw.bean.BeanFacade;
-import restaurant.frw.bean.SpringContext;
+import restaurant.frw.common.BeanFacade;
+import restaurant.frw.common.SpringContext;
 
 public class ApplicationBeanInitializer implements PostLoadEventListener {
     private static final long serialVersionUID = -6793362186119048769L;

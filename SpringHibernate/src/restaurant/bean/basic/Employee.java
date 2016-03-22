@@ -63,19 +63,19 @@ public class Employee extends ApplicationBean {
 
     @Embedded
     @AttributeOverrides({ @AttributeOverride(name = "idNum", column = @Column(name = "self_idNumber") ),
-            @AttributeOverride(name = "name.firstName", column = @Column(name = "self_firstName") ),
-            @AttributeOverride(name = "name.middleName", column = @Column(name = "self_middleName") ),
-            @AttributeOverride(name = "name.lastName", column = @Column(name = "self_lastName")),
-            @AttributeOverride(name = "address.country", column = @Column(name = "self_country") ),
-            @AttributeOverride(name = "address.provinces", column = @Column(name = "self_provinces") ),
-            @AttributeOverride(name = "address.state", column = @Column(name = "self_state") ),
-            @AttributeOverride(name = "address.street", column = @Column(name = "self_street") ),
-            @AttributeOverride(name = "address.postCode", column = @Column(name = "self_postCode") ),
-            @AttributeOverride(name = "contactInfo.cellPhone", column = @Column(name = "self_cellPhone") ),
-            @AttributeOverride(name = "contactInfo.wechatNum", column = @Column(name = "self_wechatNum") ),
-            @AttributeOverride(name = "contactInfo.qqNum", column = @Column(name = "self_qqNum") ),
-            @AttributeOverride(name = "contactInfo.email", column = @Column(name = "self_email") ),
-            @AttributeOverride(name = "birthDay", column = @Column(name = "self_birthDay") ) })
+        @AttributeOverride(name = "name.firstName", column = @Column(name = "self_firstName") ),
+        @AttributeOverride(name = "name.middleName", column = @Column(name = "self_middleName") ),
+        @AttributeOverride(name = "name.lastName", column = @Column(name = "self_lastName")),
+        @AttributeOverride(name = "address.country", column = @Column(name = "self_country") ),
+        @AttributeOverride(name = "address.provinces", column = @Column(name = "self_provinces") ),
+        @AttributeOverride(name = "address.state", column = @Column(name = "self_state") ),
+        @AttributeOverride(name = "address.street", column = @Column(name = "self_street") ),
+        @AttributeOverride(name = "address.postCode", column = @Column(name = "self_postCode") ),
+        @AttributeOverride(name = "contactInfo.cellPhone", column = @Column(name = "self_cellPhone") ),
+        @AttributeOverride(name = "contactInfo.wechatNum", column = @Column(name = "self_wechatNum") ),
+        @AttributeOverride(name = "contactInfo.qqNum", column = @Column(name = "self_qqNum") ),
+        @AttributeOverride(name = "contactInfo.email", column = @Column(name = "self_email") ),
+        @AttributeOverride(name = "birthDay", column = @Column(name = "self_birthDay") ) })
     public PersonalInfo getSelfInfo() {
         return selfInfo;
     }
@@ -133,7 +133,7 @@ public class Employee extends ApplicationBean {
         this.leaveReason = leaveReason;
     }
 
-    @OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, mappedBy="owner")
+    @OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, mappedBy="ownerEmployee")
     public List<SalaryRule> getSalaryRules() {
         return salaryRules;
     }
@@ -144,7 +144,7 @@ public class Employee extends ApplicationBean {
 
     @Embedded
     @AttributeOverrides({ @AttributeOverride(name = "hour", column = @Column(name = "startWorkingHour_hour") ),
-            @AttributeOverride(name = "minite", column = @Column(name = "startWorkingMinite_minite") ) })
+        @AttributeOverride(name = "minite", column = @Column(name = "startWorkingMinite_minite") ) })
     public DayTime getStartWorkingTime() {
         return startWorkingTime;
     }
@@ -155,7 +155,7 @@ public class Employee extends ApplicationBean {
 
     @Embedded
     @AttributeOverrides({ @AttributeOverride(name = "hour", column = @Column(name = "endWorkingTime_hour") ),
-            @AttributeOverride(name = "minite", column = @Column(name = "endWorkingTime_minite") ) })
+        @AttributeOverride(name = "minite", column = @Column(name = "endWorkingTime_minite") ) })
     public DayTime getEndWorkingTime() {
         return endWorkingTime;
     }

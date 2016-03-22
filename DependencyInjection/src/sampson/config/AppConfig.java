@@ -19,27 +19,27 @@ import sampson.enumeration.Gender;
 @Configuration
 @ImportResource("file:E:\\SpringWorkspace\\DependencyInjection\\Bean.xml")
 public class AppConfig {
-	
-	@Autowired
-	private ApplicationContext ctx;	
-	
-	@Bean(name="invoice")
-	//@Profile({"p1"})
-	public Invoice createInvoice() {
-		return new Invoice();
-	}
-	
-	@Bean(name="report")
-	//@Profile({"p2"})
-	public Report createReport() {
-		return new Report();
-	}
 
-	@Bean(name="fred")
-	public Customer createCustomerFred() {
-		Set<Address> addressList = new HashSet<Address>();
-		addressList.add((Address)ctx.getBean("address1"));
-		
-		return new Customer("fred", "123", 40, Gender.MALE, 2L, addressList);
-	}
+    @Autowired
+    private ApplicationContext ctx;	
+
+    @Bean(name="invoice")
+    //@Profile({"p1"})
+    public Invoice createInvoice() {
+        return new Invoice();
+    }
+
+    @Bean(name="report")
+    //@Profile({"p2"})
+    public Report createReport() {
+        return new Report();
+    }
+
+    @Bean(name="fred")
+    public Customer createCustomerFred() {
+        Set<Address> addressList = new HashSet<Address>();
+        addressList.add((Address)ctx.getBean("address1"));
+
+        return new Customer("fred", "123", 40, Gender.MALE, 2L, addressList);
+    }
 }

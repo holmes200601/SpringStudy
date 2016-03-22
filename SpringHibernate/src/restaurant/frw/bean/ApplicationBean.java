@@ -2,15 +2,14 @@ package restaurant.frw.bean;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 
+import restaurant.frw.common.BeanFacade;
+
 @MappedSuperclass
 @Access(AccessType.PROPERTY)
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class ApplicationBean {
     private BeanFacade facade;
 
@@ -33,5 +32,5 @@ public class ApplicationBean {
     public void setFacade(BeanFacade facade) {
         this.facade = facade;
     }
-    
+
 }

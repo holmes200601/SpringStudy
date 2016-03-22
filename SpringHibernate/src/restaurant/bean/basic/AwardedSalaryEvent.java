@@ -13,7 +13,7 @@ public class AwardedSalaryEvent extends SalaryEvent {
     @Column(nullable=false)
     private BigDecimal awardAmount;
 
-    
+
     public BigDecimal getAwardAmount() {
         return awardAmount;
     }

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- include this line to use annotation  -->
+	<!-- <context:annotation-config base-package="sampson.bean"/> -->
+	<context:component-scan base-package="restaurant.frw" />
+	<context:component-scan base-package="restaurant.srv" />	
+
+	<!-- define xml-base beans here if needed-->
+	<!-- Basic DataSource -->
+	<bean name="mysqlConnectionPoolDataSource" class="com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource">
+		<property name="url" value="jdbc:mysql://127.0.0.1:3306/restaurantdb" />
+		<property name="user" value="sampson" />
+		<property name="password" value="sampson" />
+	</bean>
+	<!-- Pooled DataSource framework from common -->
+	<bean id="dbcpDataSource" class="org.apache.commons.dbcp2.datasources.PerUserPoolDataSource" destroy-method="close">
+		<property name="connectionPoolDataSource" ref="mysqlConnectionPoolDataSource" />
+		<property name="description" value="True used data source by application layer." />
+	</bean>
+	
+	<!-- SessionFactory -->
+	<bean name="globalSessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dbcpDataSource" />
+		<property name="configLocation" value="hibernate.cfg.xml" />
+	</bean>
+	
+	<!-- HibernateTemplate -->
+	<bean name="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">
+		<property name="sessionFactory" ref="globalSessionFactory" />
+	</bean>
+	
+	<!-- Transaction Manager -->
+	<bean name="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="globalSessionFactory" />
+	</bean>
+	
+	<bean name="beanFacadeImpl" class="restaurant.frw.spring.BeanFacadeImpl" />
+
+</beans>

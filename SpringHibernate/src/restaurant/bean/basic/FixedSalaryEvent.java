@@ -12,7 +12,7 @@ public class FixedSalaryEvent extends SalaryEvent {
         if (!(getSalaryRule() instanceof FixedSalaryRule)) {
             // throw exception here
         }
-        
+
         this.setAmount(((FixedSalaryRule)(getSalaryRule())).getBaseAmount());
     }
 

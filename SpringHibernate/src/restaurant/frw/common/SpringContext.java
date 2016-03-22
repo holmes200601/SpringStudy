@@ -1,4 +1,4 @@
-package restaurant.frw.bean;
+package restaurant.frw.common;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -12,7 +12,7 @@ public class SpringContext implements ApplicationContextAware {
     public static <T> T getBean(Class<T> clazz) {
         return applicationContext.getBean(clazz);
     }
-    
+
     public static <T> T getBean(String beanName, Class<T> clazz) {
         return applicationContext.getBean(beanName, clazz);
     }
@@ -20,7 +20,7 @@ public class SpringContext implements ApplicationContextAware {
     @Override
     @SuppressWarnings("static-access")
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;        
+        SpringContext.applicationContext = applicationContext;        
     }   
-    
+
 }

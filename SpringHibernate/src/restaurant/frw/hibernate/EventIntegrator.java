@@ -22,6 +22,6 @@ public class EventIntegrator implements org.hibernate.integrator.spi.Integrator 
     @Override
     public void disintegrate(SessionFactoryImplementor sessionFactory, SessionFactoryServiceRegistry serviceRegistry) {
         // TODO Auto-generated method stub
-        
+
     }
 }
