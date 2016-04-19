@@ -2,7 +2,6 @@ package sampson.test;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
 
@@ -39,6 +38,7 @@ public class ResourceTester implements Tester {
 
     private ClassPathResource classPathResource;
 
+    @Override
     public void prepareTest() {
         /*
          * 1) Create file with read content. 2) Create the
@@ -57,6 +57,7 @@ public class ResourceTester implements Tester {
 
     }
 
+    @Override
     public void executeTest() {
         /*
          * 1) Test FileSystemResource by reading content
@@ -67,16 +68,18 @@ public class ResourceTester implements Tester {
 
         logger.debug("ResourceTester::executeTest");
         // Test file system resource
-        logger.info("***FileSystemResources test {}.***", testResourceInternal(fileSystemResource) ? "PASSED" : "FAILED");
-        
+        logger.info("***FileSystemResources test {}.***",
+                testResourceInternal(fileSystemResource) ? "PASSED" : "FAILED");
+
         // Test class path resource
         logger.info("***ClassPathResources test {}.***", testResourceInternal(classPathResource) ? "PASSED" : "FAILED");
-        
+
         // Test url resource
         logger.info("***URLResource test {}.***", "PASSED");
 
     }
 
+    @Override
     public void clearTest() {
         /*
          * Clear all the created file from above resources
@@ -89,12 +92,14 @@ public class ResourceTester implements Tester {
 
     private void createUrlResource(Path path) {
         logger.info("UrlResource would not be tested for now, as no server can be used.");
-        
-//        try {
-//            urlResource = new UrlResource("http://www.baidu.com");
-//        } catch (MalformedURLException e) {
-//            logger.error("urlResource creation failure: {}", e.getMessage());
-//        }
+
+        // try {
+        // urlResource = new
+        // UrlResource("http://www.baidu.com");
+        // } catch (MalformedURLException e) {
+        // logger.error("urlResource creation failure: {}",
+        // e.getMessage());
+        // }
     }
 
     private void createFileSystemResource(Path path) {
@@ -118,7 +123,7 @@ public class ResourceTester implements Tester {
 
     private void createClassPathResource(Path path) {
         logger.debug("Creating classpath resource '{}'", path.toString());
-        
+
         // 1) Create class path resource
         String parentPath = getParentOfTargetClass(this.getClass());
         if (parentPath == null) {
@@ -140,21 +145,21 @@ public class ResourceTester implements Tester {
 
         return result;
     }
-    
+
     private boolean testResourceInternal(Resource resource) {
         boolean result = false;
-        
+
         if (resource.exists()) {
             try (InputStream input = resource.getInputStream()) {
                 byte[] readBytes = new byte[testFileContent.length()];
                 input.read(readBytes);
-                result =  testFileContent.equals(new String(readBytes, Charset.forName("US-ASCII")));
+                result = testFileContent.equals(new String(readBytes, Charset.forName("US-ASCII")));
             } catch (IOException e) {
                 logger.error("Can not read content for resource");
                 e.getMessage();
             }
         }
-        
+
         return result;
     }
 

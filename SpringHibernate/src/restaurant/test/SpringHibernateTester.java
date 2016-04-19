@@ -13,40 +13,39 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.util.Assert;
 
-import restaurant.bean.basic.AwardedSalaryEvent;
-import restaurant.bean.basic.AwardedSalaryRule;
-import restaurant.bean.basic.DeducedSalaryEvent;
-import restaurant.bean.basic.DeducedSalaryRule;
-import restaurant.bean.basic.Employee;
-import restaurant.bean.basic.FixedSalaryEvent;
-import restaurant.bean.basic.FixedSalaryRule;
-import restaurant.bean.basic.HouredSalaryEvent;
-import restaurant.bean.basic.HouredSalaryRule;
-import restaurant.bean.basic.Restaurant;
-import restaurant.bean.basic.SalaryEvent;
-import restaurant.bean.basic.SalaryRule;
-import restaurant.bean.common.Address;
-import restaurant.bean.common.ContactInfo;
-import restaurant.bean.common.PersonName;
-import restaurant.bean.common.PersonalInfo;
-import restaurant.bean.utils.TimeUtils;
+import restaurant.basic.bean.entity.AwardedSalaryEvent;
+import restaurant.basic.bean.entity.AwardedSalaryRule;
+import restaurant.basic.bean.entity.DeducedSalaryEvent;
+import restaurant.basic.bean.entity.DeducedSalaryRule;
+import restaurant.basic.bean.entity.Employee;
+import restaurant.basic.bean.entity.FixedSalaryEvent;
+import restaurant.basic.bean.entity.FixedSalaryRule;
+import restaurant.basic.bean.entity.HouredSalaryEvent;
+import restaurant.basic.bean.entity.HouredSalaryRule;
+import restaurant.basic.bean.entity.Restaurant;
+import restaurant.basic.bean.entity.SalaryEvent;
+import restaurant.basic.bean.entity.SalaryRule;
+import restaurant.common.bean.component.Address;
+import restaurant.common.bean.component.ContactDetail;
+import restaurant.common.bean.component.PersonName;
+import restaurant.common.bean.component.PersonalDetail;
 import restaurant.frw.bean.ApplicationBeanFactory;
 import restaurant.srv.basic.EmployeeService;
+import restaurant.utils.TimeUtils;
 import sampson.test.Tester;
 
 public class SpringHibernateTester implements Tester {
     private static final Logger logger = Logger.getLogger(SpringHibernateTester.class);
-    
+
     @Autowired
     private HibernateTemplate hibernateTemplate;
-    
+
     @Autowired
     private HibernateTransactionManager txManager;
-    
+
     @Autowired
     private EmployeeService employeeSrv;
 
-    
     @Override
     public void prepareTest() {
         logger.info("Entering prepareTest...");
@@ -65,54 +64,46 @@ public class SpringHibernateTester implements Tester {
     public void executeTest() {
         logger.info("Entering executeTest...");
 
-        /* This test would simulate the following scenario
-         * Add Restaurant Info into the system
-         * Add Employee (Sampson, Amy, Chun) into the system and appoint Chun as manager 
-         * Add SalaryRules for each employee 
-         * Add SalaryEvents for each employee
-         * CHECK the salary for each employee
-         * Drop some SalaryRule for each employee
-         * Drop some SalaryEvent for each employee
-         * CHECK the salary for each employee
-         *  */
+        /*
+         * This test would simulate the following scenario
+         * Add Restaurant Info into the system Add Employee
+         * (Sampson, Amy, Chun) into the system and appoint
+         * Chun as manager Add SalaryRules for each employee
+         * Add SalaryEvents for each employee CHECK the
+         * salary for each employee Drop some SalaryRule for
+         * each employee Drop some SalaryEvent for each
+         * employee CHECK the salary for each employee
+         */
 
         TransactionStatus ts = txManager.getTransaction(new DefaultTransactionDefinition());
-        
-        Restaurant res = createRestaurant();
+
+        // Restaurant res = createRestaurant();
 
         // Create Employees
-        Employee sampson = createEmployeeSampson();
+        // Employee sampson = createEmployeeSampson();
+        //
+        // Employee amy = createEmployeeAmy();
+        //
+        // Employee chun = createEmployeeChun();
+        //
+        // res.setManager(sampson);
+        //
+        // createSalaryRuleForSampson(sampson);
+        //
+        // createSalaryRuleForAmy(amy);
+        //
+        // createSalaryRuleForChun(chun);
+        //
+        // createSalaryEventForSampson(sampson);
+        //
+        // createSalaryEventForAmy(amy);
+        //
+        // createSalaryEventForChun(chun);
 
-        Employee amy = createEmployeeAmy();
+        // Test for HQL
+        testForHibernateQueryLanguage();
 
-        Employee chun = createEmployeeChun();
-
-        res.setManager(sampson);
-
-        createSalaryRuleForSampson(sampson);
-
-        createSalaryRuleForAmy(amy);
-
-        createSalaryRuleForChun(chun);
-
-        createSalaryEventForSampson(sampson);
-
-        createSalaryEventForAmy(amy);
-
-        createSalaryEventForChun(chun);
-        
-        txManager.commit(ts);
-
-        // Verify Salary of each employee
-        /* Salary total = 100 */
-        verifySalaryForSampson(sampson);
-
-        /* Salary total = 200 */
-        verifySalaryForAmy(amy);
-
-        /* Salary total = 1270 */
-        verifySalaryForChun(chun);
-    
+        txManager.rollback(ts);
     }
 
     @Override
@@ -125,7 +116,7 @@ public class SpringHibernateTester implements Tester {
         Restaurant result = new Restaurant();
 
         /* Build restaurant ContactInfo */
-        ContactInfo ci = new ContactInfo();
+        ContactDetail ci = new ContactDetail();
         ci.setCellPhone("13585971003");
         ci.setWechatNum("13585971003");
         ci.setQqNum("273487840");
@@ -150,13 +141,13 @@ public class SpringHibernateTester implements Tester {
         ad.setStreet("Zhumei Rd 266");
         ad.setPostCode("200230");
 
-        ContactInfo ci = new ContactInfo();
+        ContactDetail ci = new ContactDetail();
         ci.setCellPhone("13585971003");
         ci.setWechatNum("13585971003");
         ci.setQqNum("273487840");
         ci.setEmail("malatang.he@hotmail.com");
 
-        PersonalInfo pi = new PersonalInfo();
+        PersonalDetail pi = new PersonalDetail();
         pi.setName(new PersonName("Sampson", null, "He"));
         pi.setAddress(ad);
         pi.setContactInfo(ci);
@@ -182,13 +173,13 @@ public class SpringHibernateTester implements Tester {
         ad.setStreet("Zhumei Rd 266");
         ad.setPostCode("200230");
 
-        ContactInfo ci = new ContactInfo();
+        ContactDetail ci = new ContactDetail();
         ci.setCellPhone("13661569579");
         ci.setWechatNum("13661569579");
         ci.setQqNum("2686586654");
         ci.setEmail("chja159@hotmail.com");
 
-        PersonalInfo pi = new PersonalInfo();
+        PersonalDetail pi = new PersonalDetail();
         pi.setName(new PersonName("Amy", null, "Chen"));
         pi.setAddress(ad);
         pi.setContactInfo(ci);
@@ -214,13 +205,13 @@ public class SpringHibernateTester implements Tester {
         ad.setStreet("Zhumei Rd 266");
         ad.setPostCode("200230");
 
-        ContactInfo ci = new ContactInfo();
+        ContactDetail ci = new ContactDetail();
         ci.setCellPhone("13818652329");
         ci.setWechatNum("13818652329");
         ci.setQqNum("2686586654");
         ci.setEmail("hxc@hotmail.com");
 
-        PersonalInfo pi = new PersonalInfo();
+        PersonalDetail pi = new PersonalDetail();
         pi.setName(new PersonName("Chun", null, "He"));
         pi.setAddress(ad);
         pi.setContactInfo(ci);
@@ -376,40 +367,45 @@ public class SpringHibernateTester implements Tester {
     }
 
     private void verifySalaryForSampson(Employee sampson) {
-        /* Month Time       Amount
-         * 2021-10-1        100
-         * 2021-11-1        0
-         *  */
-        BigDecimal result = employeeSrv.calculateEmployeeSalary(sampson, TimeUtils.buildDate(2021, 10, 1), TimeUtils.buildDate(2021, 10, 31));
+        /*
+         * Month Time Amount 2021-10-1 100 2021-11-1 0
+         */
+        BigDecimal result = employeeSrv.calculateEmployeeSalary(sampson, TimeUtils.buildDate(2021, 10, 1),
+                TimeUtils.buildDate(2021, 10, 31));
         Assert.isTrue(result.compareTo(BigDecimal.valueOf(100)) == 0);
-        
-        result = employeeSrv.calculateEmployeeSalary(sampson, TimeUtils.buildDate(2021, 11, 1), TimeUtils.buildDate(2021, 11, 30));
+
+        result = employeeSrv.calculateEmployeeSalary(sampson, TimeUtils.buildDate(2021, 11, 1),
+                TimeUtils.buildDate(2021, 11, 30));
         Assert.isTrue(result.compareTo(BigDecimal.valueOf(0)) == 0);
     }
 
     private void verifySalaryForAmy(Employee amy) {
         /*
-         * Month Time       Amount
-         * 2021-10-1        100
-         * 2021-11-1        0
-         * */
-        BigDecimal result = employeeSrv.calculateEmployeeSalary(amy, TimeUtils.buildDate(2021, 10, 1), TimeUtils.buildDate(2021, 10, 31));
+         * Month Time Amount 2021-10-1 100 2021-11-1 0
+         */
+        BigDecimal result = employeeSrv.calculateEmployeeSalary(amy, TimeUtils.buildDate(2021, 10, 1),
+                TimeUtils.buildDate(2021, 10, 31));
         Assert.isTrue(result.compareTo(BigDecimal.valueOf(100)) == 0);
-        
-        result = employeeSrv.calculateEmployeeSalary(amy, TimeUtils.buildDate(2021, 11, 1), TimeUtils.buildDate(2021, 11, 30));
+
+        result = employeeSrv.calculateEmployeeSalary(amy, TimeUtils.buildDate(2021, 11, 1),
+                TimeUtils.buildDate(2021, 11, 30));
         Assert.isTrue(result.compareTo(BigDecimal.valueOf(0)) == 0);
     }
 
     private void verifySalaryForChun(Employee chun) {
         /*
-         * Month Time       Amount
-         * 2021-9-1        800
-         * 2021-10-1        450
-         * */
-        BigDecimal result = employeeSrv.calculateEmployeeSalary(chun, TimeUtils.buildDate(2021, 9, 1), TimeUtils.buildDate(2021, 9, 30));
+         * Month Time Amount 2021-9-1 800 2021-10-1 450
+         */
+        BigDecimal result = employeeSrv.calculateEmployeeSalary(chun, TimeUtils.buildDate(2021, 9, 1),
+                TimeUtils.buildDate(2021, 9, 30));
         Assert.isTrue(result.compareTo(BigDecimal.valueOf(800)) == 0);
-        
-        result = employeeSrv.calculateEmployeeSalary(chun, TimeUtils.buildDate(2021, 10, 1), TimeUtils.buildDate(2021, 10, 31));
+
+        result = employeeSrv.calculateEmployeeSalary(chun, TimeUtils.buildDate(2021, 10, 1),
+                TimeUtils.buildDate(2021, 10, 31));
         Assert.isTrue(result.compareTo(BigDecimal.valueOf(490)) == 0);
+    }
+
+    private void testForHibernateQueryLanguage() {
+
     }
 }

@@ -1,14 +1,12 @@
 package sampson.jdbcdao;
 
-import java.io.InputStream;
-
 public class Person {
     @Property(primary=true)
     private Long id;
-    
+
     @Property
     private String name;
-    
+
     @Property(type = "LONGBLOB")
     private byte[] image;
 
@@ -35,5 +33,5 @@ public class Person {
     public void setImage(byte[] image) {
         this.image = image;
     }
-    
+
 }

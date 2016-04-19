@@ -9,8 +9,6 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.PropertyEditorRegistry;
-import org.springframework.beans.PropertyEditorRegistrySupport;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Configuration;
@@ -107,7 +105,7 @@ public class MainEntrance {
 
             tester.executeTest();
         }
-        
+
         public static void clear(Tester tester) {
             tester.clearTest();
         }

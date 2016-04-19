@@ -9,7 +9,7 @@ import java.nio.file.StandardOpenOption;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import sampson.string.util.StringUtil;
+import restaurant.utils.StringUtil;
 
 public class GenFileManager {
     public static final Logger logger = LoggerFactory.getLogger(GenFileManager.class);

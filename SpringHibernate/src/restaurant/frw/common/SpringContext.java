@@ -18,9 +18,8 @@ public class SpringContext implements ApplicationContextAware {
     }
 
     @Override
-    @SuppressWarnings("static-access")
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        SpringContext.applicationContext = applicationContext;        
-    }   
+        SpringContext.applicationContext = applicationContext;
+    }
 
 }

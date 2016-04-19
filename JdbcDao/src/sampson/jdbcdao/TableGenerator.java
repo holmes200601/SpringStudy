@@ -2,8 +2,6 @@ package sampson.jdbcdao;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
-import java.sql.Time;
-import java.sql.Types;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,30 +24,28 @@ public class TableGenerator {
         for (Class<?> clazz : tableClasses) {
             /* Extract table name */
             String tableName = clazz.getSimpleName();
-            
+
             /* Resemble the create sql string */
-            final StringBuilder[] sqlBuilder = {new StringBuilder("CREATE TABLE " + tableName + " (")};
-            
-            ReflectionUtils.doWithFields(clazz, 
-                    new ReflectionUtils.FieldCallback() {
-                        @Override
-                        public void doWith(Field field) throws IllegalArgumentException, IllegalAccessException {
-                            String sqlStr = getSqlStringForProperty(field, field.getDeclaredAnnotation(Property.class));
-                            sqlBuilder[0].append(sqlStr).append(", ");                            
-                        }
-                    }, 
-                    new ReflectionUtils.FieldFilter() {
-                        @Override
-                        public boolean matches(Field field) {
-                            return field.getDeclaredAnnotation(Property.class) != null;                            
-                        }
-                    });
-           
+            final StringBuilder[] sqlBuilder = { new StringBuilder("CREATE TABLE " + tableName + " (") };
+
+            ReflectionUtils.doWithFields(clazz, new ReflectionUtils.FieldCallback() {
+                @Override
+                public void doWith(Field field) throws IllegalArgumentException, IllegalAccessException {
+                    String sqlStr = getSqlStringForProperty(field, field.getDeclaredAnnotation(Property.class));
+                    sqlBuilder[0].append(sqlStr).append(", ");
+                }
+            }, new ReflectionUtils.FieldFilter() {
+                @Override
+                public boolean matches(Field field) {
+                    return field.getDeclaredAnnotation(Property.class) != null;
+                }
+            });
+
             /* Erase the last token */
             sqlBuilder[0] = sqlBuilder[0].delete(sqlBuilder[0].length() - 2, sqlBuilder[0].length());
             /* Add the close ')' */
             sqlBuilder[0] = sqlBuilder[0].append(");");
-            
+
             jt.update(sqlBuilder[0].toString(), new HashMap<String, Object>());
         }
     }

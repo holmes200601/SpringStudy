@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+		<!-- JDBC Properties -->
+		<!--  
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.url">jdbc:mysql://127.0.0.1:3306/restaurantdb</property>
+		<property name="hibernate.connection.username">sampson</property>
+		<property name="hibernate.connection.password">sampson</property>
+		-->
+		
+		<!-- Connection Pools -->
+		<!-- 
+		<property name="hibernate.c3p0.min_size">5</property>
+		<property name="hibernate.c3p0.max_size">10</property>
+		<property name="hibernate.c3p0.timeout">1000</property>
+		-->
+		
+		<!-- SQL Dialect -->
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+		
+		<!-- Context Class -->
+		<property name="hibernate.current_session_context_class">thread</property>
+		
+		<!-- Log Level -->
+		<property name="show_sql">true</property>
+		
+		<!-- Recreate Database on Start -->
+		<!--  
+		<property name="hibernate.hbm2ddl.auto">create</property>
+		-->
+		
+		<!-- Entity Mapping Definition -->
+		<mapping class="restaurant.bean.basic.Restaurant" />
+		<mapping class="restaurant.bean.basic.Employee" />
+		<mapping class="restaurant.bean.basic.FixedSalaryRule" />
+		<mapping class="restaurant.bean.basic.FixedSalaryEvent" />
+		<mapping class="restaurant.bean.basic.AwardedSalaryRule" />
+		<mapping class="restaurant.bean.basic.AwardedSalaryEvent" />
+		<mapping class="restaurant.bean.basic.DeducedSalaryRule" />
+		<mapping class="restaurant.bean.basic.DeducedSalaryEvent" />
+		<mapping class="restaurant.bean.basic.HouredSalaryRule" />
+		<mapping class="restaurant.bean.basic.HouredSalaryEvent" />	
+	</session-factory>
+</hibernate-configuration>

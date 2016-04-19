@@ -5,8 +5,8 @@ import java.util.Date;
 
 import org.springframework.stereotype.Service;
 
-import restaurant.bean.basic.Employee;
-import restaurant.bean.basic.SalaryRule;
+import restaurant.basic.bean.entity.Employee;
+import restaurant.basic.bean.entity.SalaryRule;
 import restaurant.frw.srv.BasicService;
 
 @Service

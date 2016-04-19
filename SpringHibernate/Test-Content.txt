@@ -15,6 +15,7 @@ Restaurants Design
 	
 	#Sales Part#
 	Dish Management
+		Restaurant needs to maintain all the dishes they sell. New dishes can be added. Sales price and other information can be modified. Dishes no longer being sold can be deleted.
 	Customer Management
 	SalesOrder Management
 	Invoice Management
