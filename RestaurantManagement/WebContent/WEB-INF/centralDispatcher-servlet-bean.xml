@@ -11,24 +11,16 @@
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
         
 	<context:component-scan base-package="restaurant.controller" />
-	<context:component-scan base-package="restaurant.config" />
 	<mvc:annotation-driven />
 	
 	<!-- Jackson 2 HttpMessageConverter -->
-	<!-- Configured in configuration file 
 	<bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper" />
-	-->
 	
 	<bean id="jasonConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
 		<constructor-arg ref="objectMapper" />
 	</bean>
 	
 	<!-- Open session in view pattern -->
-	<!--  
-	<bean name="osivInterceptor" class="org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor">
-		<property name="sessionFactory" ref="globalSessionFactory" />
-	</bean>
-	-->
 	<mvc:interceptors>
 		<bean class="org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor">
 			<property name="sessionFactory" ref="globalSessionFactory" />

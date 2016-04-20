@@ -19,8 +19,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import restaurant.common.bean.component.DayTime;
 import restaurant.common.bean.component.PersonalDetail;
 import restaurant.frw.bean.ApplicationBean;
@@ -46,8 +44,6 @@ public class Employee extends ApplicationBean {
     private LeaveReasonEnum leaveReason;
     private DayTime startWorkingTime;
     private DayTime endWorkingTime;
-
-    @JsonManagedReference("subRule")
     private List<SalaryRule> salaryRules = new ArrayList<SalaryRule>();
 
     @Id

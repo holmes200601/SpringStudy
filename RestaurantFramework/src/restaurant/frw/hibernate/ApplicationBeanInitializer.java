@@ -1,7 +1,7 @@
 package restaurant.frw.hibernate;
 
-import org.hibernate.event.spi.PostLoadEvent;
-import org.hibernate.event.spi.PostLoadEventListener;
+import org.hibernate.event.PostLoadEvent;
+import org.hibernate.event.PostLoadEventListener;
 
 import restaurant.frw.bean.ApplicationBean;
 import restaurant.frw.common.BeanFacade;
@@ -13,9 +13,9 @@ public class ApplicationBeanInitializer implements PostLoadEventListener {
     @Override
     public void onPostLoad(PostLoadEvent event) {
         if (event.getEntity() != null) {
-            ApplicationBean ab = (ApplicationBean)event.getEntity();
+            ApplicationBean ab = (ApplicationBean) event.getEntity();
             ab.setFacade(SpringContext.getBean(BeanFacade.class));
-        }        
+        }
     }
 
 }

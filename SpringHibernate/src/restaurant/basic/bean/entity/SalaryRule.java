@@ -24,8 +24,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import restaurant.frw.bean.ApplicationBean;
 import restaurant.utils.TimeUtils;
 
@@ -48,7 +46,6 @@ public class SalaryRule extends ApplicationBean {
 
     @ManyToOne(targetEntity = Employee.class)
     @JoinColumn(name = "ownerEmployeeId", nullable = false)
-    @JsonBackReference("subRule")
     private Employee ownerEmployee;
 
     @Column(nullable = false)

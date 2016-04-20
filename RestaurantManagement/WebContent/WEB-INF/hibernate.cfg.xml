@@ -35,15 +35,20 @@
 		-->
 		
 		<!-- Entity Mapping Definition -->
-		<mapping class="restaurant.bean.basic.Restaurant" />
-		<mapping class="restaurant.bean.basic.Employee" />
-		<mapping class="restaurant.bean.basic.FixedSalaryRule" />
-		<mapping class="restaurant.bean.basic.FixedSalaryEvent" />
-		<mapping class="restaurant.bean.basic.AwardedSalaryRule" />
-		<mapping class="restaurant.bean.basic.AwardedSalaryEvent" />
-		<mapping class="restaurant.bean.basic.DeducedSalaryRule" />
-		<mapping class="restaurant.bean.basic.DeducedSalaryEvent" />
-		<mapping class="restaurant.bean.basic.HouredSalaryRule" />
-		<mapping class="restaurant.bean.basic.HouredSalaryEvent" />	
+		<mapping class="restaurant.basic.bean.entity.Restaurant" />
+		<mapping class="restaurant.basic.bean.entity.Employee" />
+		<mapping class="restaurant.basic.bean.entity.FixedSalaryRule" />
+		<mapping class="restaurant.basic.bean.entity.FixedSalaryEvent" />
+		<mapping class="restaurant.basic.bean.entity.AwardedSalaryRule" />
+		<mapping class="restaurant.basic.bean.entity.AwardedSalaryEvent" />
+		<mapping class="restaurant.basic.bean.entity.DeducedSalaryRule" />
+		<mapping class="restaurant.basic.bean.entity.DeducedSalaryEvent" />
+		<mapping class="restaurant.basic.bean.entity.HouredSalaryRule" />
+		<mapping class="restaurant.basic.bean.entity.HouredSalaryEvent" />
+		
+		<!-- Event Listener -->
+		<event type="post-load">
+			<listener class="restaurant.frw.hibernate.ApplicationBeanInitializer"/>
+		</event>
 	</session-factory>
 </hibernate-configuration>
