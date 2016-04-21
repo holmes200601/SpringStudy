@@ -12,7 +12,7 @@ import restaurant.frw.common.BeanFacade;
 
 @MappedSuperclass
 @Access(AccessType.PROPERTY)
-public class ApplicationBean implements Serializable {
+public abstract class ApplicationBean implements Serializable {
     private static final long serialVersionUID = -8339600186648331156L;
 
     private BeanFacade facade;

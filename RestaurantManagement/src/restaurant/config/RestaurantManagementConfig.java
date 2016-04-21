@@ -10,4 +10,5 @@ public class RestaurantManagementConfig {
     public DozerBeanMapper registerDozerMapper() {
         return DozerConversionConfig.getDozerBeanMapper();
     }
+
 }

@@ -3,8 +3,11 @@ package restaurant.dozer.custom.converter;
 import java.lang.reflect.Field;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.TreeMap;
 
-import org.dozer.DozerConverter;
+import org.dozer.CustomConverter;
 import org.dozer.Mapper;
 import org.dozer.MapperAware;
 import org.dozer.Mapping;
@@ -12,31 +15,41 @@ import org.springframework.util.ReflectionUtils;
 
 import restaurant.dto.association.AssociationInfo;
 import restaurant.frw.bean.ApplicationBean;
+import restaurant.frw.common.BeanFacade;
+import restaurant.frw.common.SpringContext;
+import restaurant.utils.ReflectionUtilsPlus;
 
-public class AssociationConverter extends DozerConverter<AssociationInfo, ApplicationBean> implements MapperAware {
+public class AssociationConverter implements MapperAware, CustomConverter {
     private Mapper mapper;
-
-    public AssociationConverter() {
-        super(AssociationInfo.class, ApplicationBean.class);
-    }
-
-    public AssociationConverter(Class<AssociationInfo> prototypeA, Class<ApplicationBean> prototypeB) {
-        super(prototypeA, prototypeB);
-    }
+    private Map<Field, Object> fieldValueMap = new TreeMap<Field, Object>();
 
     @Override
-    public ApplicationBean convertTo(AssociationInfo source, ApplicationBean destination) {
-        // TODO Auto-generated method stub
-        return destination;
+    public Object convert(Object existingDestinationFieldValue, Object sourceFieldValue, Class<?> destinationClass,
+            Class<?> sourceClass) {
+        Object result = null;
+        if (sourceClass.getGenericSuperclass().getTypeName().equals(ApplicationBean.class.getName())) {
+            result = Bean2Info(sourceClass, destinationClass, (ApplicationBean) sourceFieldValue,
+                    (AssociationInfo) existingDestinationFieldValue);
+        } else if (sourceClass.getGenericSuperclass().getTypeName().equals(AssociationInfo.class.getName())) {
+            result = Info2Bean(sourceClass, destinationClass, (AssociationInfo) sourceFieldValue,
+                    (ApplicationBean) existingDestinationFieldValue);
+        } else {
+            assert (false);
+        }
+
+        return result;
     }
 
-    @Override
-    public AssociationInfo convertFrom(ApplicationBean source, AssociationInfo destination) {
-        /*
-         * Steps: Get all mapped fields for source bean
-         * Convert value for source bean field to target
-         * bean field value
-         */
+    public AssociationInfo Bean2Info(Class<?> sourceClass, Class<?> destClass, ApplicationBean source,
+            AssociationInfo destination) {
+        if (source == null) {
+            return destination;
+        }
+
+        if (destination == null) {
+            destination = (AssociationInfo) ReflectionUtilsPlus.newInstance(destClass);
+        }
+
         List<Field> mappedSrcFieldSet = new LinkedList<Field>();
         ReflectionUtils.doWithFields(destination.getClass(), new ReflectionUtils.FieldCallback() {
 
@@ -55,10 +68,28 @@ public class AssociationConverter extends DozerConverter<AssociationInfo, Applic
                 // map src value to dest value
                 Object srcValue = ReflectionUtils.getField(mappedSrcField, source);
                 Object destValue = mapper.map(srcValue, field.getType());
-                ReflectionUtils.setField(field, destination, destValue);
+                fieldValueMap.put(field, destValue);
+
             }
 
         });
+
+        for (Entry<Field, Object> entry : fieldValueMap.entrySet()) {
+            ReflectionUtils.setField(entry.getKey(), destination, entry.getValue());
+        }
+
+        return destination;
+    }
+
+    public ApplicationBean Info2Bean(Class<?> sourceClass, Class<?> destClass, AssociationInfo source,
+            ApplicationBean destination) {
+        if (source == null) {
+            return destination;
+        }
+
+        // Load bean
+        BeanFacade facade = SpringContext.getBean(BeanFacade.class);
+        destination = (ApplicationBean) facade.loadBean(destClass, source.getId(), false);
 
         return destination;
     }

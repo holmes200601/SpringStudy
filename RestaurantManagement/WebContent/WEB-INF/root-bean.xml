@@ -13,7 +13,9 @@
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop.xsd">
     
-    <context:component-scan base-package="restaurant.config" />
+    <context:component-scan base-package="restaurant.config">
+    	<context:exclude-filter type="assignable" expression="restaurant.config.CentralServletConfig"/>
+    </context:component-scan>
 	<context:component-scan base-package="restaurant.frw" />
 	<context:component-scan base-package="restaurant.srv" />
     
@@ -61,6 +63,7 @@
 			<tx:method name="doDelete" isolation="READ_COMMITTED" propagation="REQUIRES_NEW" />
 			 -->
 			<tx:method name="load*" isolation="READ_COMMITTED" propagation="REQUIRED" read-only="true" />
+			<tx:method name="save*" isolation="READ_COMMITTED" propagation="REQUIRES_NEW" />
 		</tx:attributes>
 	</tx:advice>
 	

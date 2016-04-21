@@ -6,6 +6,17 @@
 	<configuration>
 		<stop-on-errors>true</stop-on-errors>
 		<trim-strings>true</trim-strings>
+		<map-null>false</map-null>
+		<custom-converters>
+			<converter type="restaurant.dozer.custom.converter.DayTimeConverter">
+				<class-a>java.lang.String</class-a>
+				<class-b>restaurant.common.bean.component.DayTime</class-b>
+			</converter>
+			<converter type="restaurant.dozer.custom.converter.AssociationConverter">
+				<class-a>restaurant.dto.association.AssociationInfo</class-a>
+				<class-b>restaurant.frw.bean.ApplicationBean</class-b>
+			</converter>
+		</custom-converters>
 	</configuration>		  	
 
 </mappings>

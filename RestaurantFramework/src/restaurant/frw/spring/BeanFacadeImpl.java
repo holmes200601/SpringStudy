@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Component;
 
+import restaurant.frw.bean.ApplicationBean;
 import restaurant.frw.common.BeanFacade;
 import restaurant.frw.common.SpringContext;
 import restaurant.utils.CollectionUtils;
@@ -21,8 +22,9 @@ public class BeanFacadeImpl implements BeanFacade {
     private SpringContext wrapedContext;
 
     @Override
-    public <T> T loadBean(Class<T> beanClazz, Long id) {
-        T obj = hTemplate.load(beanClazz, id);
+    public <T> T loadBean(Class<T> beanClazz, Long id, Boolean forceLoad) {
+
+        T obj = (forceLoad) ? hTemplate.get(beanClazz, id) : hTemplate.load(beanClazz, id);
 
         return obj;
     }
@@ -39,10 +41,16 @@ public class BeanFacadeImpl implements BeanFacade {
         return resultList;
     }
 
-    @SuppressWarnings("static-access")
     @Override
-    public <T> T getSpringBean(Class<T> beanClazz) {
-        return wrapedContext.getBean(beanClazz);
+    public Long saveBean(ApplicationBean bean) {
+
+        return (Long) hTemplate.save(bean);
+    }
+
+    @Override
+    public void saveOrUpdate(ApplicationBean bean) {
+        hTemplate.saveOrUpdate(bean);
+
     }
 
 }
