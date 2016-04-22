@@ -1,48 +1,52 @@
 package restaurant.controller;
 
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
 import restaurant.basic.bean.entity.Restaurant;
 import restaurant.frw.common.BeanFacade;
 import restaurant.ro.basic.RestaurantRO;
 
-@RestController
+@Controller
 @RequestMapping(value = "/restaurant")
 public class RestaurantController extends ControllerBase {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public RestaurantRO getRestaurant(@PathVariable Long id) {
+    public ResponseEntity<RestaurantRO> getRestaurant(@PathVariable Long id) {
         BeanFacade bf = getBeanFacade();
 
         Restaurant loadObject = bf.loadBean(Restaurant.class, id, true);
 
         RestaurantRO result = getDozerMapper().map(loadObject, RestaurantRO.class);
 
-        return result;
+        return new ResponseEntity<RestaurantRO>(result, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PATCH)
-    public void updateRestaurant(@PathVariable Long id, @RequestBody RestaurantRO restaurant) {
+    public ResponseEntity<Void> updateRestaurant(@PathVariable Long id, HttpEntity<RestaurantRO> requestEntity) {
         Restaurant loadedObj = getBeanFacade().loadBean(Restaurant.class, id, true);
-        getDozerMapper().map(restaurant, loadedObj);
+        getDozerMapper().map(requestEntity.getBody(), loadedObj);
 
-        int i = 1;
+        getBeanFacade().saveOrUpdate(loadedObj);
 
+        return new ResponseEntity<Void>((Void) null, HttpStatus.ACCEPTED);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public Long createRestaurant(@RequestBody(required = true) RestaurantRO restaurant) {
+    public ResponseEntity<Long> createRestaurant(@RequestBody(required = true) RestaurantRO restaurant) {
         BeanFacade bf = getBeanFacade();
 
         Restaurant bo = getDozerMapper().map(restaurant, Restaurant.class);
 
         Long id = bf.saveBean(bo);
 
-        return id;
+        return new ResponseEntity<Long>(id, HttpStatus.CREATED);
     }
 
 }
