@@ -21,6 +21,6 @@
   </servlet>
   <servlet-mapping>
   	<servlet-name>centralDispatcher</servlet-name>
-  	<url-pattern>/rm/*</url-pattern>
+  	<url-pattern>/*</url-pattern>
   </servlet-mapping>
 </web-app>
