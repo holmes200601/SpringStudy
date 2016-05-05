@@ -47,6 +47,8 @@
 		<mapping class="restaurant.basic.bean.entity.HouredSalaryEvent" />
 		<mapping class="restaurant.uom.bean.entity.UomGroup" />
 		<mapping class="restaurant.uom.bean.entity.Uom"/>
+		<mapping class="restaurant.dish.bean.entity.Dish" />
+		<mapping class="restaurant.dish.bean.entity.DishIngredient" />
 		
 		<!-- Event Listener -->
 		<event type="post-load">

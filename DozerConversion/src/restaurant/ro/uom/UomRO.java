@@ -1,10 +1,13 @@
 package restaurant.ro.uom;
 
+import java.math.BigDecimal;
+
 import restaurant.dto.association.UomGroupInfo;
 
 public class UomRO {
 	private Long id;
 	private String name;
+	private BigDecimal rate;
 	private Boolean isBaseUom;
 	private UomGroupInfo group;
 
@@ -40,4 +43,14 @@ public class UomRO {
 		this.group = group;
 	}
 
+	public BigDecimal getRate() {
+		return rate;
+	}
+
+	public void setRate(BigDecimal rate) {
+		this.rate = rate;
+	}
+
+	
+	
 }
