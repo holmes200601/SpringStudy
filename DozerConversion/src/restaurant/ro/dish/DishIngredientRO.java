@@ -2,9 +2,10 @@ package restaurant.ro.dish;
 
 import java.math.BigDecimal;
 
+import org.dozer.Mapping;
+
 import restaurant.dto.association.DishInfo;
 import restaurant.dto.association.UomInfo;
-import restaurant.uom.bean.entity.Uom;
 
 public class DishIngredientRO {
 	private Long id;
@@ -13,7 +14,6 @@ public class DishIngredientRO {
 	private UomInfo uom;
 	private BigDecimal amount;
 	private BigDecimal cost;
-	private DishInfo dishInfo;
 
 	public Long getId() {
 		return id;
@@ -62,13 +62,4 @@ public class DishIngredientRO {
 	public void setCost(BigDecimal cost) {
 		this.cost = cost;
 	}
-
-	public DishInfo getDishInfo() {
-		return dishInfo;
-	}
-
-	public void setDishInfo(DishInfo dishInfo) {
-		this.dishInfo = dishInfo;
-	}
-
 }

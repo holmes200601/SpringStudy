@@ -20,25 +20,32 @@ import org.hibernate.annotations.Formula;
 import restaurant.frw.bean.ApplicationBean;
 
 @Entity
-@Access(value= AccessType.PROPERTY)
+@Access(value = AccessType.FIELD)
 public class Dish extends ApplicationBean {
 	private static final long serialVersionUID = -5922769018980431064L;
-
-	private Long id;
-	private String name;
-	private String barCodeUrl;
-	private String picUrl;
-	private String description;
-	private BigDecimal price;
-	private BigDecimal cost;
-	// Following two properties need to be calculated by user or in front page
-	// private BigDecimal profit;
-	// private BigDecimal profitPercentage;
-	private List<DishIngredient> ingredientList = new LinkedList<DishIngredient>();
 
 	@Id
 	@GeneratedValue(generator = "DishSeq")
 	@SequenceGenerator(name = "DishSeq", allocationSize = 1)
+	private Long id;
+
+	@Column(nullable = false)
+	private String name;
+	private String barCodeUrl;
+	private String picUrl;
+
+	@Lob
+	private String description;
+	private BigDecimal price;
+
+	@Formula("SELECT SUM(di.cost) FROM DishIngredient di WHERE di.dishId = id")
+	private BigDecimal cost;
+	// Following two properties need to be calculated by user or in front page
+	// private BigDecimal profit;
+	// private BigDecimal profitPercentage;
+	@OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<DishIngredient> ingredientList = new LinkedList<DishIngredient>();
+
 	public Long getId() {
 		return id;
 	}
@@ -47,7 +54,6 @@ public class Dish extends ApplicationBean {
 		this.id = id;
 	}
 
-	@Column(nullable=false)
 	public String getName() {
 		return name;
 	}
@@ -72,7 +78,6 @@ public class Dish extends ApplicationBean {
 		this.picUrl = picUrl;
 	}
 
-	@Lob
 	public String getDescription() {
 		return description;
 	}
@@ -89,7 +94,6 @@ public class Dish extends ApplicationBean {
 		this.price = price;
 	}
 
-	@Formula("SELECT SUM(di.cost) FROM DishIngredient di WHERE di.dishId = id")
 	public BigDecimal getCost() {
 		return cost;
 	}
@@ -98,7 +102,6 @@ public class Dish extends ApplicationBean {
 		this.cost = cost;
 	}
 
-	@OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, orphanRemoval = true)
 	public List<DishIngredient> getIngredientList() {
 		return ingredientList;
 	}
@@ -106,5 +109,5 @@ public class Dish extends ApplicationBean {
 	public void setIngredientList(List<DishIngredient> ingredientList) {
 		this.ingredientList = ingredientList;
 	}
-	
+
 }

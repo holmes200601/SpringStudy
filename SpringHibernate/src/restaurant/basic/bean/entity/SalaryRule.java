@@ -25,6 +25,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import restaurant.frw.bean.ApplicationBean;
+import restaurant.frw.bean.SubApplicationBean;
 import restaurant.utils.TimeUtils;
 
 @Entity
@@ -32,7 +33,7 @@ import restaurant.utils.TimeUtils;
 @Access(AccessType.FIELD)
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "ruletype", discriminatorType = DiscriminatorType.STRING)
-public class SalaryRule extends ApplicationBean {
+public class SalaryRule extends SubApplicationBean {
 
     /**
      * 
@@ -117,7 +118,7 @@ public class SalaryRule extends ApplicationBean {
         String query = buildQuery();
         Map<String, Object> paramMap = buildQueryParamMapForSalary(from, to);
 
-        List<SalaryEvent> salaryEventList = getFacade().loadBeans(SalaryEvent.class, query, paramMap);
+        List<SalaryEvent> salaryEventList = getParent().getFacade().loadBeans(SalaryEvent.class, query, paramMap);
 
         for (SalaryEvent se : salaryEventList) {
             result = result.add(se.getAmount());
@@ -155,5 +156,20 @@ public class SalaryRule extends ApplicationBean {
 
         return paramMap;
     }
+
+	@Override
+	public ApplicationBean getParent() {
+		return this.getOwnerEmployee();
+	}
+
+	@Override
+	public void setParent(ApplicationBean parent) {
+		if (parent instanceof Employee) {
+			this.setOwnerEmployee((Employee)parent);
+		} else {
+			assert(false);
+		}
+		
+	}
 
 }

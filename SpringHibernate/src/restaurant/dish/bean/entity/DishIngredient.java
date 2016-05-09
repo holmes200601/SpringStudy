@@ -13,24 +13,36 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
 import restaurant.frw.bean.ApplicationBean;
+import restaurant.frw.bean.SubApplicationBean;
 import restaurant.uom.bean.entity.Uom;
 
 @Entity
-@Access(value= AccessType.PROPERTY)
-public class DishIngredient extends ApplicationBean {
+@Access(value = AccessType.FIELD)
+public class DishIngredient extends SubApplicationBean {
 	private static final long serialVersionUID = 8650990742879299218L;
-
-	private Long id;
-	private String name;
-	private String codeUrl;
-	private Uom uom;
-	private BigDecimal amount;
-	private BigDecimal cost;
-	private Dish dish;
 
 	@Id
 	@GeneratedValue(generator = "DishIngredientSeq")
 	@SequenceGenerator(name = "DishIngredientSeq", allocationSize = 1)
+	private Long id;
+
+	@Column(nullable = false)
+	private String name;
+	private String codeUrl;
+
+	@Column(nullable = false)
+	private Uom uom;
+
+	@Column(nullable = false)
+	private BigDecimal amount;
+
+	@Column(nullable = false)
+	private BigDecimal cost;
+
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "dishId", nullable = false)
+	private Dish dish;
+
 	public Long getId() {
 		return id;
 	}
@@ -39,7 +51,6 @@ public class DishIngredient extends ApplicationBean {
 		this.id = id;
 	}
 
-	@Column(nullable = false)
 	public String getName() {
 		return name;
 	}
@@ -56,7 +67,6 @@ public class DishIngredient extends ApplicationBean {
 		this.codeUrl = codeUrl;
 	}
 
-	@Column(nullable=false)
 	public Uom getUom() {
 		return uom;
 	}
@@ -65,7 +75,6 @@ public class DishIngredient extends ApplicationBean {
 		this.uom = uom;
 	}
 
-	@Column(nullable=false)
 	public BigDecimal getAmount() {
 		return amount;
 	}
@@ -74,7 +83,6 @@ public class DishIngredient extends ApplicationBean {
 		this.amount = amount;
 	}
 
-	@Column(nullable=false)
 	public BigDecimal getCost() {
 		return cost;
 	}
@@ -83,14 +91,26 @@ public class DishIngredient extends ApplicationBean {
 		this.cost = cost;
 	}
 
-	@ManyToOne(optional=false)
-	@JoinColumn(name="dishId", nullable=false)
 	public Dish getDish() {
 		return dish;
 	}
 
 	public void setDish(Dish dish) {
 		this.dish = dish;
+	}
+
+	@Override
+	public ApplicationBean getParent() {
+		return this.getDish();
+	}
+
+	@Override
+	public void setParent(ApplicationBean parent) {
+		if (parent instanceof Dish) {
+			this.setDish((Dish) parent);
+		} else {
+			assert (false);
+		}
 	}
 
 }

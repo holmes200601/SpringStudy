@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.dozer.Mapping;
+
 import restaurant.dto.association.DishInfo;
 import restaurant.dto.association.UomInfo;
 
@@ -15,6 +17,7 @@ public class DishRO {
 	private String description;
 	private BigDecimal price;
 	private BigDecimal cost;
+	@Mapping("ingredientList")
 	private List<DishIngredientRO> ingredient = new LinkedList<DishIngredientRO>();
 
 	public Long getId() {
@@ -98,7 +101,6 @@ public class DishRO {
 		di.setId(dish.getId());
 		di.setName(dish.getName());
 		di.setBarCodeUrl(dish.getBarCodeUrl());
-		ingr.setDishInfo(di);
 		ingr.setName("ingredient Name");
 		UomInfo uom = new UomInfo();
 		uom.setId(1L);

@@ -15,19 +15,25 @@ import javax.persistence.SequenceGenerator;
 import restaurant.frw.bean.ApplicationBean;
 
 @Entity
-@Access(AccessType.PROPERTY)
+@Access(AccessType.FIELD)
 public class Uom extends ApplicationBean {
 	private static final long serialVersionUID = -6589930036774238003L;
-
-	private Long id;
-	private UomGroup group;
-	private String name;
-	private BigDecimal rate;
-	private Boolean isBaseUom;
 
 	@Id
 	@GeneratedValue(generator="UomSeq")
 	@SequenceGenerator(name="UomSeq", allocationSize=1)
+	private Long id;	
+	@ManyToOne(targetEntity=UomGroup.class)
+	@JoinColumn(nullable=false, name="groupId")
+	private UomGroup group;
+	@Column(nullable = false)
+	private String name;
+	@Column(nullable = false)
+	private BigDecimal rate;
+	@Column(nullable = false)
+	private Boolean isBaseUom;
+
+	
 	public Long getId() {
 		return id;
 	}
@@ -36,8 +42,7 @@ public class Uom extends ApplicationBean {
 		this.id = id;
 	}
 
-	@ManyToOne(targetEntity=UomGroup.class)
-	@JoinColumn(nullable=false, name="groupId")
+	
 	public UomGroup getGroup() {
 		return group;
 	}
@@ -62,7 +67,7 @@ public class Uom extends ApplicationBean {
 		this.isBaseUom = isBaseUom;
 	}
 
-	@Column(nullable = false)
+	
 	public BigDecimal getRate() {
 		return rate;
 	}

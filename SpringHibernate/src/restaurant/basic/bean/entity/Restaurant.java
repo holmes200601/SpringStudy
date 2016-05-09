@@ -19,80 +19,85 @@ import restaurant.common.bean.component.ContactDetail;
 import restaurant.frw.bean.ApplicationBean;
 
 @Entity
-@Access(AccessType.PROPERTY)
+@Access(AccessType.FIELD)
 public class Restaurant extends ApplicationBean {
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 8265177144990260203L;
-    private Long id;
-    private String name;
-    private Employee manager;
-    private String iconPath;
-    private String comments;
-    private List<String> photoGalary = new ArrayList<String>();
-    private ContactDetail contactInfo;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8265177144990260203L;
 
-    @Id
-    @GeneratedValue(generator = "RestaurantSeq")
-    @SequenceGenerator(name = "RestaurantSeq", allocationSize = 1)
-    public Long getId() {
-        return id;
-    }
+	@Id
+	@GeneratedValue(generator = "RestaurantSeq")
+	@SequenceGenerator(name = "RestaurantSeq", allocationSize = 1)
+	private Long id;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	private String name;
 
-    public String getName() {
-        return name;
-    }
+	@OneToOne(targetEntity = Employee.class)
+	private Employee manager;
+	private String iconPath;
+	private String comments;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	@ElementCollection
+	@CollectionTable(name = "Restaurant_PhotoGalary", joinColumns = @JoinColumn(name = "restaurant_id"))
+	@Column(name = "photo_path")
+	private List<String> photoGalary = new ArrayList<String>();
 
-    @OneToOne(targetEntity = Employee.class)
-    public Employee getManager() {
-        return manager;
-    }
+	private ContactDetail contactInfo;
 
-    public void setManager(Employee manager) {
-        this.manager = manager;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public String getIconPath() {
-        return iconPath;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setIconPath(String iconPath) {
-        this.iconPath = iconPath;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getComments() {
-        return comments;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setComments(String comments) {
-        this.comments = comments;
-    }
+	public Employee getManager() {
+		return manager;
+	}
 
-    @ElementCollection
-    @CollectionTable(name = "Restaurant_PhotoGalary", joinColumns = @JoinColumn(name = "restaurant_id"))
-    @Column(name = "photo_path")
-    public List<String> getPhotoGalary() {
-        return photoGalary;
-    }
+	public void setManager(Employee manager) {
+		this.manager = manager;
+	}
 
-    public void setPhotoGalary(List<String> photoGalary) {
-        this.photoGalary = photoGalary;
-    }
+	public String getIconPath() {
+		return iconPath;
+	}
 
-    public ContactDetail getContactInfo() {
-        return contactInfo;
-    }
+	public void setIconPath(String iconPath) {
+		this.iconPath = iconPath;
+	}
 
-    public void setContactInfo(ContactDetail contactInfo) {
-        this.contactInfo = contactInfo;
-    }
+	public String getComments() {
+		return comments;
+	}
+
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
+
+	public List<String> getPhotoGalary() {
+		return photoGalary;
+	}
+
+	public void setPhotoGalary(List<String> photoGalary) {
+		this.photoGalary = photoGalary;
+	}
+
+	public ContactDetail getContactInfo() {
+		return contactInfo;
+	}
+
+	public void setContactInfo(ContactDetail contactInfo) {
+		this.contactInfo = contactInfo;
+	}
 }

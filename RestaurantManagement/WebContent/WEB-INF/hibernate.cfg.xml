@@ -30,8 +30,9 @@
 		<property name="show_sql">true</property>
 		
 		<!-- Recreate Database on Start -->
-		<!-- -->
+		<!-- 
 		<property name="hibernate.hbm2ddl.auto">create</property>
+		-->
 		 
 		
 		<!-- Entity Mapping Definition -->

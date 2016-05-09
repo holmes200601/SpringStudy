@@ -57,13 +57,13 @@ public class UomController extends ControllerBase {
     }
 
     @Override
-    @RequestMapping(value = "/template", method = RequestMethod.GET)
+    @RequestMapping(value = "/example", method = RequestMethod.GET)
     public Object getInstance() {
         // TODO Auto-generated method stub
         return ReflectionUtilsPlus.newInstance(UomRO.class);
     }
 
-    @RequestMapping(value = "/group/template", method = RequestMethod.GET)
+    @RequestMapping(value = "/group/example", method = RequestMethod.GET)
     public Object getInstanceOne() {
         return ReflectionUtilsPlus.newInstance(UomGroupRO.class);
     }

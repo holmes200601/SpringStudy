@@ -24,149 +24,157 @@ import restaurant.common.bean.component.PersonalDetail;
 import restaurant.frw.bean.ApplicationBean;
 
 @Entity
-@Access(AccessType.PROPERTY)
+@Access(AccessType.FIELD)
 public class Employee extends ApplicationBean {
-    /**
-     * 
-     */
-    private static final long serialVersionUID = -2908683198179239992L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2908683198179239992L;
 
-    public enum LeaveReasonEnum {
-        FIRED, RUN_AWAY, FAMILY_ISSUE, LAW_BROKEN, LOW_SALARY, OTHER
-    }
+	public enum LeaveReasonEnum {
+		FIRED, RUN_AWAY, FAMILY_ISSUE, LAW_BROKEN, LOW_SALARY, OTHER
+	}
 
-    private Long id;
-    private String employeeNumber;
-    private PersonalDetail selfInfo;
-    private PersonalDetail emergencyContactPerson;
-    private Date onBoardDate;
-    private Date leaveDate;
-    private LeaveReasonEnum leaveReason;
-    private DayTime startWorkingTime;
-    private DayTime endWorkingTime;
-    private List<SalaryRule> salaryRules = new ArrayList<SalaryRule>();
+	@Id
+	@GeneratedValue(generator = "EmployeeSeq")
+	@SequenceGenerator(name = "EmployeeSeq", allocationSize = 1)
+	private Long id;
 
-    @Id
-    @GeneratedValue(generator = "EmployeeSeq")
-    @SequenceGenerator(name = "EmployeeSeq", allocationSize = 1)
-    public Long getId() {
-        return id;
-    }
+	@Column(unique = true)
+	private String employeeNumber;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	@Embedded
+	@AttributeOverrides({ @AttributeOverride(name = "idNum", column = @Column(name = "self_idNumber")),
+			@AttributeOverride(name = "name.firstName", column = @Column(name = "self_firstName")),
+			@AttributeOverride(name = "name.middleName", column = @Column(name = "self_middleName")),
+			@AttributeOverride(name = "name.lastName", column = @Column(name = "self_lastName")),
+			@AttributeOverride(name = "address.country", column = @Column(name = "self_country")),
+			@AttributeOverride(name = "address.provinces", column = @Column(name = "self_provinces")),
+			@AttributeOverride(name = "address.state", column = @Column(name = "self_state")),
+			@AttributeOverride(name = "address.street", column = @Column(name = "self_street")),
+			@AttributeOverride(name = "address.postCode", column = @Column(name = "self_postCode")),
+			@AttributeOverride(name = "contactInfo.cellPhone", column = @Column(name = "self_cellPhone")),
+			@AttributeOverride(name = "contactInfo.wechatNum", column = @Column(name = "self_wechatNum")),
+			@AttributeOverride(name = "contactInfo.qqNum", column = @Column(name = "self_qqNum")),
+			@AttributeOverride(name = "contactInfo.email", column = @Column(name = "self_email")),
+			@AttributeOverride(name = "birthDay", column = @Column(name = "self_birthDay")) })
+	private PersonalDetail selfInfo;
 
-    @Column(unique = true)
-    public String getEmployeeNumber() {
-        return employeeNumber;
-    }
+	@Embedded
+	@AttributeOverrides({ @AttributeOverride(name = "idNum", column = @Column(name = "emrg_idNumber")),
+			@AttributeOverride(name = "name.firstName", column = @Column(name = "emrg_firstName")),
+			@AttributeOverride(name = "name.middleName", column = @Column(name = "emrg_middleName")),
+			@AttributeOverride(name = "name.lastName", column = @Column(name = "emrg_lastName")),
+			@AttributeOverride(name = "address.country", column = @Column(name = "emrg_country")),
+			@AttributeOverride(name = "address.provinces", column = @Column(name = "emrg_provinces")),
+			@AttributeOverride(name = "address.state", column = @Column(name = "emrg_state")),
+			@AttributeOverride(name = "address.street", column = @Column(name = "emrg_street")),
+			@AttributeOverride(name = "address.postCode", column = @Column(name = "emrg_postCode")),
+			@AttributeOverride(name = "contactInfo.cellPhone", column = @Column(name = "emrg_cellPhone")),
+			@AttributeOverride(name = "contactInfo.wechatNum", column = @Column(name = "emrg_wechatNum")),
+			@AttributeOverride(name = "contactInfo.qqNum", column = @Column(name = "emrg_qqNum")),
+			@AttributeOverride(name = "contactInfo.email", column = @Column(name = "emrg_email")),
+			@AttributeOverride(name = "birthDay", column = @Column(name = "emrg_birthDay")) })
+	private PersonalDetail emergencyContactPerson;
 
-    public void setEmployeeNumber(String employeeNumber) {
-        this.employeeNumber = employeeNumber;
-    }
+	@Temporal(TemporalType.DATE)
+	private Date onBoardDate;
 
-    @Embedded
-    @AttributeOverrides({ @AttributeOverride(name = "idNum", column = @Column(name = "self_idNumber")),
-            @AttributeOverride(name = "name.firstName", column = @Column(name = "self_firstName")),
-            @AttributeOverride(name = "name.middleName", column = @Column(name = "self_middleName")),
-            @AttributeOverride(name = "name.lastName", column = @Column(name = "self_lastName")),
-            @AttributeOverride(name = "address.country", column = @Column(name = "self_country")),
-            @AttributeOverride(name = "address.provinces", column = @Column(name = "self_provinces")),
-            @AttributeOverride(name = "address.state", column = @Column(name = "self_state")),
-            @AttributeOverride(name = "address.street", column = @Column(name = "self_street")),
-            @AttributeOverride(name = "address.postCode", column = @Column(name = "self_postCode")),
-            @AttributeOverride(name = "contactInfo.cellPhone", column = @Column(name = "self_cellPhone")),
-            @AttributeOverride(name = "contactInfo.wechatNum", column = @Column(name = "self_wechatNum")),
-            @AttributeOverride(name = "contactInfo.qqNum", column = @Column(name = "self_qqNum")),
-            @AttributeOverride(name = "contactInfo.email", column = @Column(name = "self_email")),
-            @AttributeOverride(name = "birthDay", column = @Column(name = "self_birthDay")) })
-    public PersonalDetail getSelfInfo() {
-        return selfInfo;
-    }
+	@Temporal(TemporalType.DATE)
+	private Date leaveDate;
+	private LeaveReasonEnum leaveReason;
 
-    public void setSelfInfo(PersonalDetail selfInfo) {
-        this.selfInfo = selfInfo;
-    }
+	@Embedded
+	@AttributeOverrides({ @AttributeOverride(name = "hour", column = @Column(name = "startWorkingHour_hour")),
+			@AttributeOverride(name = "minite", column = @Column(name = "startWorkingMinite_minite")) })
+	private DayTime startWorkingTime;
 
-    @Embedded
-    @AttributeOverrides({ @AttributeOverride(name = "idNum", column = @Column(name = "emrg_idNumber")),
-            @AttributeOverride(name = "name.firstName", column = @Column(name = "emrg_firstName")),
-            @AttributeOverride(name = "name.middleName", column = @Column(name = "emrg_middleName")),
-            @AttributeOverride(name = "name.lastName", column = @Column(name = "emrg_lastName")),
-            @AttributeOverride(name = "address.country", column = @Column(name = "emrg_country")),
-            @AttributeOverride(name = "address.provinces", column = @Column(name = "emrg_provinces")),
-            @AttributeOverride(name = "address.state", column = @Column(name = "emrg_state")),
-            @AttributeOverride(name = "address.street", column = @Column(name = "emrg_street")),
-            @AttributeOverride(name = "address.postCode", column = @Column(name = "emrg_postCode")),
-            @AttributeOverride(name = "contactInfo.cellPhone", column = @Column(name = "emrg_cellPhone")),
-            @AttributeOverride(name = "contactInfo.wechatNum", column = @Column(name = "emrg_wechatNum")),
-            @AttributeOverride(name = "contactInfo.qqNum", column = @Column(name = "emrg_qqNum")),
-            @AttributeOverride(name = "contactInfo.email", column = @Column(name = "emrg_email")),
-            @AttributeOverride(name = "birthDay", column = @Column(name = "emrg_birthDay")) })
-    public PersonalDetail getEmergencyContactPerson() {
-        return emergencyContactPerson;
-    }
+	@Embedded
+	@AttributeOverrides({ @AttributeOverride(name = "hour", column = @Column(name = "endWorkingTime_hour")),
+			@AttributeOverride(name = "minite", column = @Column(name = "endWorkingTime_minite")) })
+	private DayTime endWorkingTime;
 
-    public void setEmergencyContactPerson(PersonalDetail emergencyContactPerson) {
-        this.emergencyContactPerson = emergencyContactPerson;
-    }
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "ownerEmployee")
+	private List<SalaryRule> salaryRules = new ArrayList<SalaryRule>();
 
-    @Temporal(TemporalType.DATE)
-    public Date getOnBoardDate() {
-        return onBoardDate;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setOnBoardDate(Date onBoardDate) {
-        this.onBoardDate = onBoardDate;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    @Temporal(TemporalType.DATE)
-    public Date getLeaveDate() {
-        return leaveDate;
-    }
+	public String getEmployeeNumber() {
+		return employeeNumber;
+	}
 
-    public void setLeaveDate(Date leaveDate) {
-        this.leaveDate = leaveDate;
-    }
+	public void setEmployeeNumber(String employeeNumber) {
+		this.employeeNumber = employeeNumber;
+	}
 
-    public LeaveReasonEnum getLeaveReason() {
-        return leaveReason;
-    }
+	public PersonalDetail getSelfInfo() {
+		return selfInfo;
+	}
 
-    public void setLeaveReason(LeaveReasonEnum leaveReason) {
-        this.leaveReason = leaveReason;
-    }
+	public void setSelfInfo(PersonalDetail selfInfo) {
+		this.selfInfo = selfInfo;
+	}
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "ownerEmployee")
-    public List<SalaryRule> getSalaryRules() {
-        return salaryRules;
-    }
+	public PersonalDetail getEmergencyContactPerson() {
+		return emergencyContactPerson;
+	}
 
-    public void setSalaryRules(List<SalaryRule> salaryRules) {
-        this.salaryRules = salaryRules;
-    }
+	public void setEmergencyContactPerson(PersonalDetail emergencyContactPerson) {
+		this.emergencyContactPerson = emergencyContactPerson;
+	}
 
-    @Embedded
-    @AttributeOverrides({ @AttributeOverride(name = "hour", column = @Column(name = "startWorkingHour_hour")),
-            @AttributeOverride(name = "minite", column = @Column(name = "startWorkingMinite_minite")) })
-    public DayTime getStartWorkingTime() {
-        return startWorkingTime;
-    }
+	public Date getOnBoardDate() {
+		return onBoardDate;
+	}
 
-    public void setStartWorkingTime(DayTime startWorkingTime) {
-        this.startWorkingTime = startWorkingTime;
-    }
+	public void setOnBoardDate(Date onBoardDate) {
+		this.onBoardDate = onBoardDate;
+	}
 
-    @Embedded
-    @AttributeOverrides({ @AttributeOverride(name = "hour", column = @Column(name = "endWorkingTime_hour")),
-            @AttributeOverride(name = "minite", column = @Column(name = "endWorkingTime_minite")) })
-    public DayTime getEndWorkingTime() {
-        return endWorkingTime;
-    }
+	public Date getLeaveDate() {
+		return leaveDate;
+	}
 
-    public void setEndWorkingTime(DayTime endWorkingTime) {
-        this.endWorkingTime = endWorkingTime;
-    }
+	public void setLeaveDate(Date leaveDate) {
+		this.leaveDate = leaveDate;
+	}
+
+	public LeaveReasonEnum getLeaveReason() {
+		return leaveReason;
+	}
+
+	public void setLeaveReason(LeaveReasonEnum leaveReason) {
+		this.leaveReason = leaveReason;
+	}
+
+	public List<SalaryRule> getSalaryRules() {
+		return salaryRules;
+	}
+
+	public void setSalaryRules(List<SalaryRule> salaryRules) {
+		this.salaryRules = salaryRules;
+	}
+
+	public DayTime getStartWorkingTime() {
+		return startWorkingTime;
+	}
+
+	public void setStartWorkingTime(DayTime startWorkingTime) {
+		this.startWorkingTime = startWorkingTime;
+	}
+
+	public DayTime getEndWorkingTime() {
+		return endWorkingTime;
+	}
+
+	public void setEndWorkingTime(DayTime endWorkingTime) {
+		this.endWorkingTime = endWorkingTime;
+	}
 
 }

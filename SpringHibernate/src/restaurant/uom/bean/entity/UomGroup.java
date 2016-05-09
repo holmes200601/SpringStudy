@@ -2,6 +2,7 @@ package restaurant.uom.bean.entity;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,13 +13,22 @@ import javax.persistence.SequenceGenerator;
 import restaurant.frw.bean.ApplicationBean;
 
 @Entity
-@Access(AccessType.PROPERTY)
+@Access(AccessType.FIELD)
 public class UomGroup extends ApplicationBean {
 
 	private static final long serialVersionUID = -777904883719785465L;
 
-	private String name;
+	
+	
+	@Id
+	@GeneratedValue(generator="UomGroupSeq")
+	@SequenceGenerator(name="UomGroupSeq", allocationSize=1)
 	private Long id;
+	@Column(nullable=false)
+	private String name;
+	
+	@OneToOne
+	@JoinColumn(name="baseUomId")
 	private Uom baseUom;
 
 	public String getName() {
@@ -29,9 +39,7 @@ public class UomGroup extends ApplicationBean {
 		this.name = name;
 	}
 
-	@Id
-	@GeneratedValue(generator="UomGroupSeq")
-	@SequenceGenerator(name="UomGroupSeq", allocationSize=1)
+	
 	public Long getId() {
 		return id;
 	}
@@ -40,8 +48,7 @@ public class UomGroup extends ApplicationBean {
 		this.id = id;
 	}
 
-	@OneToOne
-	@JoinColumn(name="baseUomId")
+	
 	public Uom getBaseUom() {
 		return baseUom;
 	}

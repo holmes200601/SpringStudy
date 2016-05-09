@@ -2,18 +2,18 @@ package restaurant.controller;
 
 import javax.servlet.ServletContext;
 
-import org.dozer.DozerBeanMapper;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import restaurant.dozer.custom.mapper.CustomizedDozerBeanMapper;
 import restaurant.frw.common.BeanFacade;
 
 public abstract class ControllerBase implements ServletContextAware {
-	private DozerBeanMapper mapper;
+	private CustomizedDozerBeanMapper mapper;
 	private BeanFacade beanFacade;
 
-	protected DozerBeanMapper getDozerMapper() {
+	protected CustomizedDozerBeanMapper getDozerMapper() {
 		return mapper;
 	}
 
@@ -24,7 +24,7 @@ public abstract class ControllerBase implements ServletContextAware {
 	@Override
 	public void setServletContext(ServletContext servletContext) {
 		WebApplicationContext appContext = WebApplicationContextUtils.findWebApplicationContext(servletContext);
-		mapper = appContext.getBean(DozerBeanMapper.class);
+		mapper = appContext.getBean(CustomizedDozerBeanMapper.class);
 		beanFacade = appContext.getBean(BeanFacade.class);
 	}
 
