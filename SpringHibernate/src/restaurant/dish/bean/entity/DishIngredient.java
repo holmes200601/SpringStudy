@@ -30,7 +30,8 @@ public class DishIngredient extends SubApplicationBean {
 	private String name;
 	private String codeUrl;
 
-	@Column(nullable = false)
+	@JoinColumn(nullable = false)
+	@ManyToOne(optional = false)
 	private Uom uom;
 
 	@Column(nullable = false)

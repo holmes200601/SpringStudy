@@ -38,7 +38,7 @@ public class Dish extends ApplicationBean {
 	private String description;
 	private BigDecimal price;
 
-	@Formula("SELECT SUM(di.cost) FROM DishIngredient di WHERE di.dishId = id")
+	@Formula("(SELECT SUM(di.cost) FROM DishIngredient di WHERE di.dishId = id)")
 	private BigDecimal cost;
 	// Following two properties need to be calculated by user or in front page
 	// private BigDecimal profit;

@@ -12,7 +12,7 @@ public class ApplicationBeanInitializer implements PostLoadEventListener {
 
     @Override
     public void onPostLoad(PostLoadEvent event) {
-        if (event.getEntity() != null) {
+        if (event.getEntity() != null && event.getEntity() instanceof ApplicationBean) {
             ApplicationBean ab = (ApplicationBean) event.getEntity();
             ab.setFacade(SpringContext.getBean(BeanFacade.class));
         }

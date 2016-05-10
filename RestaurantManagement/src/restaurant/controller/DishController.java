@@ -31,6 +31,15 @@ public class DishController extends ControllerBase {
 		return result;
 	}
 	
+	@RequestMapping(value="/{id}", method=RequestMethod.PATCH)
+	public void updateDish(@RequestBody DishRO dish, @PathVariable("id") Long id) {
+		Dish entity = getBeanFacade().loadBean(Dish.class, id, true);
+		
+		getDozerMapper().map(dish, entity);
+		
+		getBeanFacade().saveOrUpdate(entity);
+	}
+	
 	@Override
 	@RequestMapping("/example")
 	public Object getInstance() {		

@@ -9,7 +9,7 @@ import javax.persistence.Version;
 
 @MappedSuperclass
 @Access(AccessType.FIELD)
-public class ApplicationNode implements Serializable {
+public abstract class ApplicationNode implements Serializable {
 	private static final long serialVersionUID = 487398936824609117L;
 
 	@Version
@@ -21,5 +21,15 @@ public class ApplicationNode implements Serializable {
 
 	public void setVersion(Long version) {
 		this.version = version;
+	}
+	
+	public abstract Long getId();
+	
+	public boolean equals(ApplicationNode rhs) {
+		if (rhs != null && rhs.getId() != null && this.getId() != null) {
+			return rhs.getId().compareTo(this.getId()) == 0;
+		}
+		
+		return false;
 	}
 }
