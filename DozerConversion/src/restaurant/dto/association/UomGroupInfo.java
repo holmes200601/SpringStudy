@@ -1,9 +1,9 @@
 package restaurant.dto.association;
 
-import org.dozer.Mapping;
+import restaurant.dozer.custom.mapper.CustomMapping;
 
 public class UomGroupInfo extends AssociationInfo {
-	@Mapping("name")
+	@CustomMapping(value = "name")
 	private String name;
 
 	public String getName() {

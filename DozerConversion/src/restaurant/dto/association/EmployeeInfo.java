@@ -1,9 +1,9 @@
 package restaurant.dto.association;
 
-import org.dozer.Mapping;
+import restaurant.dozer.custom.mapper.CustomMapping;
 
 public class EmployeeInfo extends AssociationInfo {
-    @Mapping("employeeNumber")
+	@CustomMapping(value="employeeNumber")
     private String number;
 
     public String getNumber() {

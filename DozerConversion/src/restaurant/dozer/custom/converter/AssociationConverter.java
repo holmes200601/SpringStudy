@@ -8,10 +8,10 @@ import java.util.List;
 import org.dozer.CustomConverter;
 import org.dozer.Mapper;
 import org.dozer.MapperAware;
-import org.dozer.Mapping;
 import org.dozer.converters.PrimitiveOrWrapperConverter;
 import org.springframework.util.ReflectionUtils;
 
+import restaurant.dozer.custom.mapper.CustomMapping;
 import restaurant.dto.association.AssociationInfo;
 import restaurant.frw.bean.ApplicationBean;
 import restaurant.frw.common.BeanFacade;
@@ -56,7 +56,7 @@ public class AssociationConverter implements MapperAware, CustomConverter {
             @Override
             public void doWith(Field field) throws IllegalArgumentException, IllegalAccessException {
                 String mappedSrcFieldName = field.getName();
-                Mapping mappingAnnotation = field.getAnnotation(Mapping.class);
+                CustomMapping mappingAnnotation = field.getAnnotation(CustomMapping.class);
                 if (mappingAnnotation != null) {
                     mappedSrcFieldName = mappingAnnotation.value();
                 }

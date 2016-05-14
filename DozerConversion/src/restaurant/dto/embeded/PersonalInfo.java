@@ -2,10 +2,10 @@ package restaurant.dto.embeded;
 
 import java.util.Date;
 
-import org.dozer.Mapping;
+import restaurant.dozer.custom.mapper.CustomMapping;
 
 public class PersonalInfo extends EmbededInfo {
-    @Mapping("idNum")
+    @CustomMapping(value = "idNum")
     private String idNumber;
     private PersonNameInfo name;
     private AddressInfo address;

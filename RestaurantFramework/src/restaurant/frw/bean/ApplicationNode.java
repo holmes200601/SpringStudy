@@ -25,7 +25,9 @@ public abstract class ApplicationNode implements Serializable {
 	
 	public abstract Long getId();
 	
-	public boolean equals(ApplicationNode rhs) {
+	@Override
+	public boolean equals(Object o) {
+		ApplicationNode rhs = (ApplicationNode) o;
 		if (rhs != null && rhs.getId() != null && this.getId() != null) {
 			return rhs.getId().compareTo(this.getId()) == 0;
 		}

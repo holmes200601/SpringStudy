@@ -15,17 +15,17 @@ import restaurant.frw.bean.ApplicationBean;
 import restaurant.frw.bean.SubApplicationBean;
 
 public class CustomizedDozerBeanMapper {
-	private DozerBeanMapper dozerMapper;
+	private CustomDozerBeanMapper dozerMapper;
 
 	public CustomizedDozerBeanMapper(List<String> configLocationList) {
-		dozerMapper = new DozerBeanMapper(configLocationList);
+		dozerMapper = new CustomDozerBeanMapper(configLocationList);
 	}
 	
-	protected DozerBeanMapper getDozerMapper() {
+	protected CustomDozerBeanMapper getDozerMapper() {
 		return dozerMapper;
 	}
 
-	protected void setDozerMapper(DozerBeanMapper dozerMapper) {
+	protected void setDozerMapper(CustomDozerBeanMapper dozerMapper) {
 		this.dozerMapper = dozerMapper;
 	}
 

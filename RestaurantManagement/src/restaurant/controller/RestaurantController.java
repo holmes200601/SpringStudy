@@ -52,9 +52,9 @@ public class RestaurantController extends ControllerBase {
 
 	@Override
 	@RequestMapping(value="/template", method = RequestMethod.GET)
-	public Object getInstance() {
+	public ResponseEntity<RestaurantRO> getInstance() {
 		// TODO Auto-generated method stub
-		return ReflectionUtilsPlus.newInstance(RestaurantRO.class);
+		return new ResponseEntity<RestaurantRO>(ReflectionUtilsPlus.newInstance(RestaurantRO.class), HttpStatus.OK);
 	}
 
 }

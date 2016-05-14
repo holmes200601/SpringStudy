@@ -3,10 +3,9 @@ package restaurant.ro.basic;
 import java.util.Date;
 import java.util.List;
 
-import org.dozer.Mapping;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import restaurant.dozer.custom.mapper.CustomMapping;
 import restaurant.dto.association.SalaryRuleInfo;
 import restaurant.dto.embeded.PersonalInfo;
 
@@ -14,16 +13,16 @@ public class EmployeeRO {
     private Long id;
     private String employeeNumber;
     private PersonalInfo selfInfo;
-    @Mapping("emergencyContactPerson")
+    @CustomMapping(value = "emergencyContactPerson")
     private PersonalInfo emergencyContact;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date onBoardDate;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date leaveDate;
     private String leaveReason;      // Need custome enum converter
-    @Mapping("startWorkingTime")
+    @CustomMapping(value = "startWorkingTime")
     private String dailyWorkingFrom;
-    @Mapping("endWorkingTime")
+    @CustomMapping(value = "endWorkingTime")
     private String dailyWorkingTo;
     private List<SalaryRuleInfo> salaryRules;
 
