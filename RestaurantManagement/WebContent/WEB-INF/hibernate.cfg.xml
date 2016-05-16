@@ -30,9 +30,7 @@
 		<property name="show_sql">true</property>
 		
 		<!-- Recreate Database on Start -->
-		<!-- 
-		<property name="hibernate.hbm2ddl.auto">create</property>
-		-->
+		<property name="hibernate.hbm2ddl.auto">update</property>
 		 
 		
 		<!-- Entity Mapping Definition -->
@@ -49,7 +47,16 @@
 		<mapping class="restaurant.uom.bean.entity.UomGroup" />
 		<mapping class="restaurant.uom.bean.entity.Uom"/>
 		<mapping class="restaurant.dish.bean.entity.Dish" />
-		<mapping class="restaurant.dish.bean.entity.DishIngredient" />
+		<mapping class="restaurant.dish.bean.entity.DishIngredientLine" />
+		<mapping class="restaurant.masterdata.bean.entity.Customer" />
+		<mapping class="restaurant.sales.bean.entity.SalesOrder" />
+		<mapping class="restaurant.sales.bean.entity.SalesOrderLine" />
+		<mapping class="restaurant.masterdata.bean.entityy.Ingredient" />
+		<mapping class="restaurant.purchase.bean.entity.PurchaseOrder" />
+		<mapping class="restaurant.purchase.bean.entity.PurchaseOrderLine" />
+		<mapping class="restaurant.masterdata.bean.entity.Supplier" />
+		<mapping class="restaurant.masterdata.bean.entity.SupplierIngredientLine" />
+		
 		
 		<!-- Event Listener -->
 		<event type="post-load">
