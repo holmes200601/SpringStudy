@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import restaurant.masterdata.bean.entity.Customer;
-import restaurant.ro.crm.CustomerRO;
+import restaurant.ro.masterdata.CustomerRO;
 import restaurant.utils.ReflectionUtilsPlus;
 
 @RestController

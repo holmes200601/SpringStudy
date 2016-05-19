@@ -46,14 +46,6 @@ public class SalesOrder extends ApplicationBean {
     // The cost of this order
     private BigDecimal cost;
 
-    public BigDecimal getCost() {
-        return cost;
-    }
-
-    public void setCost(BigDecimal cost) {
-        this.cost = cost;
-    }
-
     // The time when the order was placed
     private Date orderTime;
 
@@ -70,7 +62,15 @@ public class SalesOrder extends ApplicationBean {
     @Override
     public Long getId() {
         // TODO Auto-generated method stub
-        return null;
+        return id;
+    }
+
+    public BigDecimal getCost() {
+        return cost;
+    }
+
+    public void setCost(BigDecimal cost) {
+        this.cost = cost;
     }
 
     public Status getStatus() {

@@ -1,4 +1,4 @@
-package restaurant.ro.crm;
+package restaurant.ro.masterdata;
 
 import java.util.Date;
 
