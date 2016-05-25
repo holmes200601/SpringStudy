@@ -16,7 +16,7 @@ import restaurant.utils.ReflectionUtilsPlus;
 
 @Controller
 @RequestMapping(value = "/restaurant")
-public class RestaurantController extends ControllerBase {
+public class RestaurantController extends RestControllerBase {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<RestaurantRO> getRestaurant(@PathVariable Long id) {

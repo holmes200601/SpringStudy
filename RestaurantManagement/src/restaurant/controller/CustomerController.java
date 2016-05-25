@@ -12,7 +12,7 @@ import restaurant.utils.ReflectionUtilsPlus;
 
 @RestController
 @RequestMapping(value = "customer")
-public class CustomerController extends ControllerBase {
+public class CustomerController extends RestControllerBase {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public CustomerRO getCustomer(@PathVariable Long id) {

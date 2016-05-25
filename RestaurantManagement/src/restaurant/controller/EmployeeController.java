@@ -12,7 +12,7 @@ import restaurant.utils.ReflectionUtilsPlus;
 
 @RestController
 @RequestMapping(value = "/employee")
-public class EmployeeController extends ControllerBase {
+public class EmployeeController extends RestControllerBase {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public EmployeeRO getEmployee(@PathVariable Long id) {
         Employee loadEmployee = getBeanFacade().loadBean(Employee.class, id, true);

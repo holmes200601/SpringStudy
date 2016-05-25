@@ -11,7 +11,7 @@ import restaurant.ro.dish.DishRO;
 
 @RestController
 @RequestMapping(value="/dish")
-public class DishController extends ControllerBase {
+public class DishController extends RestControllerBase {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public DishRO getDish(@PathVariable Long id) {

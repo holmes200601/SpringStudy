@@ -14,7 +14,7 @@ import restaurant.utils.ReflectionUtilsPlus;
 
 @RestController
 @RequestMapping(value = "/uom")
-public class UomController extends ControllerBase {
+public class UomController extends RestControllerBase {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public UomRO getUom(@PathVariable Long id) {
         Uom uom = getBeanFacade().loadBean(Uom.class, id, true);
