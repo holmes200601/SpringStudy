@@ -23,10 +23,30 @@
 		<constructor-arg ref="objectMapper" />
 	</bean>
 	
+	<!-- Properties for JsonController -->
+	<bean id="boTypeProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="location" value="/WEB-INF/classes/bo2ro.properties" />
+	</bean>
+	
 	<!-- Open session in view pattern -->
 	<mvc:interceptors>
 		<bean class="org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor">
 			<property name="sessionFactory" ref="globalSessionFactory" />
 		</bean>
 	</mvc:interceptors>
+	
+	<!-- Add thymeleaf dependences -->
+	<bean id="thymeleafTemplateResolver" class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
+		<property name="templateMode" value="HTML5" />
+		<property name="prefix" value="/WEB-INF/html-template/" />
+		<property name="suffix" value=".html" />
+		<property name="characterEncoding" value="UTF-8" />
+	</bean>
+	<bean id="thymeleafTemplateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
+		<property name="templateResolver" ref="thymeleafTemplateResolver" />
+	</bean>
+	<bean id="thymeleafViewResolver" class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
+		<property name="templateEngine" ref="thymeleafTemplateEngine" />
+	</bean>
+	
 </beans>

@@ -1,10 +1,10 @@
 package restaurant.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
 import restaurant.ro.uom.UomGroupRO;
 import restaurant.ro.uom.UomRO;
@@ -12,7 +12,7 @@ import restaurant.uom.bean.entity.Uom;
 import restaurant.uom.bean.entity.UomGroup;
 import restaurant.utils.ReflectionUtilsPlus;
 
-@RestController
+@Controller
 @RequestMapping(value = "/uom")
 public class UomController extends RestControllerBase {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)

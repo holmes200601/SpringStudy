@@ -51,7 +51,7 @@
 		<mapping class="restaurant.masterdata.bean.entity.Customer" />
 		<mapping class="restaurant.sales.bean.entity.SalesOrder" />
 		<mapping class="restaurant.sales.bean.entity.SalesOrderLine" />
-		<mapping class="restaurant.masterdata.bean.entityy.Ingredient" />
+		<mapping class="restaurant.masterdata.bean.entity.Ingredient" />
 		<mapping class="restaurant.purchase.bean.entity.PurchaseOrder" />
 		<mapping class="restaurant.purchase.bean.entity.PurchaseOrderLine" />
 		<mapping class="restaurant.masterdata.bean.entity.Supplier" />

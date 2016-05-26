@@ -2,7 +2,10 @@ package restaurant.masterdata.bean.entity;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -14,6 +17,8 @@ import org.hibernate.annotations.Formula;
 import restaurant.frw.bean.ApplicationBean;
 import restaurant.uom.bean.entity.Uom;
 
+@Entity
+@Access(AccessType.FIELD)
 public class Ingredient extends ApplicationBean {
 
     private static final long serialVersionUID = 5922493932466357567L;
