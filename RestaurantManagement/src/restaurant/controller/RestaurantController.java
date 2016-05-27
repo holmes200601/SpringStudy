@@ -12,11 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import restaurant.basic.bean.entity.Restaurant;
 import restaurant.frw.common.BeanFacade;
 import restaurant.ro.basic.RestaurantRO;
-import restaurant.utils.ReflectionUtilsPlus;
 
 @Controller
 @RequestMapping(value = "/restaurant")
-public class RestaurantController extends RestControllerBase {
+public class RestaurantController extends ControllerBase {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<RestaurantRO> getRestaurant(@PathVariable Long id) {
@@ -49,12 +48,5 @@ public class RestaurantController extends RestControllerBase {
 
         return new ResponseEntity<Long>(id, HttpStatus.CREATED);
     }
-
-	@Override
-	@RequestMapping(value="/template", method = RequestMethod.GET)
-	public ResponseEntity<RestaurantRO> getInstance() {
-		// TODO Auto-generated method stub
-		return new ResponseEntity<RestaurantRO>(ReflectionUtilsPlus.newInstance(RestaurantRO.class), HttpStatus.OK);
-	}
 
 }

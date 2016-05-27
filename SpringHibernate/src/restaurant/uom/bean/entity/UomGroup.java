@@ -16,45 +16,42 @@ import restaurant.frw.bean.ApplicationBean;
 @Access(AccessType.FIELD)
 public class UomGroup extends ApplicationBean {
 
-	private static final long serialVersionUID = -777904883719785465L;
+    private static final long serialVersionUID = -777904883719785465L;
 
-	
-	
-	@Id
-	@GeneratedValue(generator="UomGroupSeq")
-	@SequenceGenerator(name="UomGroupSeq", allocationSize=1)
-	private Long id;
-	@Column(nullable=false)
-	private String name;
-	
-	@OneToOne
-	@JoinColumn(name="baseUomId")
-	private Uom baseUom;
+    @Id
+    @GeneratedValue(generator = "UomGroupSeq")
+    @SequenceGenerator(name = "UomGroupSeq", allocationSize = 1)
+    private Long id;
+    @Column(nullable = false, unique = true)
+    private String name;
 
-	public String getName() {
-		return name;
-	}
+    @OneToOne
+    @JoinColumn(name = "baseUomId")
+    private Uom baseUom;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	
-	public Long getId() {
-		return id;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    @Override
+    public Long getId() {
+        return id;
+    }
 
-	
-	public Uom getBaseUom() {
-		return baseUom;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setBaseUom(Uom baseUom) {
-		this.baseUom = baseUom;
-	}
+    public Uom getBaseUom() {
+        return baseUom;
+    }
+
+    public void setBaseUom(Uom baseUom) {
+        this.baseUom = baseUom;
+    }
 
 }

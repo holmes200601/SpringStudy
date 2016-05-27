@@ -14,7 +14,15 @@ import restaurant.utils.ReflectionUtilsPlus;
 
 @Controller
 @RequestMapping(value = "/uom")
-public class UomController extends RestControllerBase {
+public class UomController extends ControllerBase {
+
+    /*
+     * 1) Get all UomGroup list
+     * 2) Get all Uom of a UomGroup
+     * 3) Create UomGroup
+     * 4) Create Uom of a UomGroup
+     */
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public UomRO getUom(@PathVariable Long id) {
         Uom uom = getBeanFacade().loadBean(Uom.class, id, true);
@@ -54,13 +62,6 @@ public class UomController extends RestControllerBase {
         getBeanFacade().saveOrUpdate(group);
 
         return group.getId();
-    }
-
-    @Override
-    @RequestMapping(value = "/example", method = RequestMethod.GET)
-    public Object getInstance() {
-        // TODO Auto-generated method stub
-        return ReflectionUtilsPlus.newInstance(UomRO.class);
     }
 
     @RequestMapping(value = "/group/example", method = RequestMethod.GET)

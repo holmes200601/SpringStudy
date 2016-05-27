@@ -8,11 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import restaurant.masterdata.bean.entity.Customer;
 import restaurant.ro.masterdata.CustomerRO;
-import restaurant.utils.ReflectionUtilsPlus;
 
 @RestController
 @RequestMapping(value = "customer")
-public class CustomerController extends RestControllerBase {
+public class CustomerController extends ControllerBase {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public CustomerRO getCustomer(@PathVariable Long id) {
@@ -37,12 +36,6 @@ public class CustomerController extends RestControllerBase {
         getDozerMapper().map(customer, entity);
 
         getBeanFacade().saveOrUpdate(entity);
-    }
-
-    @Override
-    @RequestMapping("/example")
-    public Object getInstance() {
-        return ReflectionUtilsPlus.newInstance(CustomerRO.class);
     }
 
 }

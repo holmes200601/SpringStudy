@@ -1,0 +1,30 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    
+	<head>
+		<!-- Define javascript & css here -->
+		<title th:text="#{uomgourp.title}">Uom Management</title>
+	</head>
+	<body>
+		<div class="uom-group-div">
+			<table class="uom-group-table">
+				<caption class="uom-group-table-caption" th:text="#{uom.group.table.caption}">UomGroup Table</caption>
+				<tr class="uom-group-table-head-tr">
+					<th class="uom-group-table-head-id" th:text="#{id}">ID</th>
+					<th class="uom-group-table-head-name" th:text="#{name}">NAME</th>
+					<th class="uom-group-table-head-baseuom" th:text="#{uom.group.baseUom}">BASE UOM</th>
+				</tr>
+				<tr class="uom-group-table-data-tr" th:for="uomGroup : ${uomGroupList}" th:if="${uomGroupList.isEmpty() == false}">
+					<td class="uom-group-table-data-id" th:text="${uomGroup.id}">1</td>
+					<td class="uom-group-table-data-name" th:text="${uomGroup.name}">Group Name</td>
+					<td class="uom-group-table-data-baseuom" th:text="${uomGroup.baseUom.name}">Base Uom Name</td>
+				</tr>
+			</table>
+		</div>
+		
+		<div class="uom-group-memb-div"></div>
+		
+		<div th:replace="footer-fragment::foot-div">Footer</div>
+	</body>
+</html>

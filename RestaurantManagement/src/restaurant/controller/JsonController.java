@@ -16,7 +16,7 @@ import restaurant.utils.CollectionUtils;
 
 @RestController
 @RequestMapping(value = "/rest/{boType}")
-public class JsonController extends RestControllerBase {
+public class JsonController extends ControllerBase {
 
     @Resource(name = "boTypeProperties")
     private Properties bo2roProperties;
@@ -61,12 +61,6 @@ public class JsonController extends RestControllerBase {
                 boTypeMap.put(key, new CollectionUtils.Pair(string2Class(boRoPair[0]), string2Class(boRoPair[1])));
             }
         }
-    }
-
-    @Override
-    public Object getInstance() {
-        // TODO Auto-generated method stub
-        return null;
     }
 
     private Class<?> string2Class(String name) {

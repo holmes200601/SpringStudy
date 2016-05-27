@@ -8,11 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import restaurant.basic.bean.entity.Employee;
 import restaurant.ro.basic.EmployeeRO;
-import restaurant.utils.ReflectionUtilsPlus;
 
 @RestController
 @RequestMapping(value = "/employee")
-public class EmployeeController extends RestControllerBase {
+public class EmployeeController extends ControllerBase {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public EmployeeRO getEmployee(@PathVariable Long id) {
         Employee loadEmployee = getBeanFacade().loadBean(Employee.class, id, true);
@@ -29,11 +28,4 @@ public class EmployeeController extends RestControllerBase {
         return result;
     }
 
-	@Override
-	@RequestMapping(value="/template", method = RequestMethod.GET)
-	public Object getInstance() {
-		// TODO Auto-generated method stub
-		return ReflectionUtilsPlus.newInstance(EmployeeRO.class);
-	}
-    
 }

@@ -9,7 +9,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import restaurant.dozer.custom.mapper.CustomizedDozerBeanMapper;
 import restaurant.frw.common.BeanFacade;
 
-public abstract class RestControllerBase implements ServletContextAware {
+public abstract class ControllerBase implements ServletContextAware {
     private CustomizedDozerBeanMapper mapper;
     private BeanFacade beanFacade;
 
@@ -27,7 +27,5 @@ public abstract class RestControllerBase implements ServletContextAware {
         mapper = appContext.getBean(CustomizedDozerBeanMapper.class);
         beanFacade = appContext.getBean(BeanFacade.class);
     }
-
-    public abstract Object getInstance();
 
 }

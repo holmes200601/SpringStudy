@@ -36,12 +36,14 @@
 	</mvc:interceptors>
 	
 	<!-- Add thymeleaf dependences -->
+	<!-- This bean is added in CentralServletConfig, since 3.0.0 has no zero-parameter constructor
 	<bean id="thymeleafTemplateResolver" class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
 		<property name="templateMode" value="HTML5" />
 		<property name="prefix" value="/WEB-INF/html-template/" />
 		<property name="suffix" value=".html" />
 		<property name="characterEncoding" value="UTF-8" />
 	</bean>
+	 -->
 	<bean id="thymeleafTemplateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
 		<property name="templateResolver" ref="thymeleafTemplateResolver" />
 	</bean>
