@@ -1,0 +1,20 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
+
+	<div class="header-div" th:fragment="header-div">
+		<h1 class="header-h1" th:text="${title}">Page Title</h1>
+	</div>
+	
+	<div class="footer-div" th:fragment="footer-div">
+		<footer class="footer-tag">
+			<p>Posted by: Sampson He</p>
+			<p>Contact at: <a href="mailto:holmes200601@hotmail.com">holmes200601@hotmail.com</a></p>
+		</footer>
+	</div>
+	
+	<div class="section-divide-div" th:fragment="section-div">
+		<hr />
+	</div>
+
+</html>

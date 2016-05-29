@@ -1,5 +1,6 @@
 package restaurant.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -7,11 +8,18 @@ import java.util.Properties;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import restaurant.frw.bean.ApplicationBean;
+import restaurant.frw.common.SpringContext;
 import restaurant.utils.CollectionUtils;
 
 @RestController
@@ -20,6 +28,8 @@ public class JsonController extends ControllerBase {
 
     @Resource(name = "boTypeProperties")
     private Properties bo2roProperties;
+    
+    private final String OBJECT_MAPPER_NAME = "objectMapper";
 
     private Map<String, CollectionUtils.Pair> boTypeMap = new HashMap<String, CollectionUtils.Pair>();
 
@@ -27,14 +37,17 @@ public class JsonController extends ControllerBase {
      * For now, only provide the getting method
      * 
      */
-    @RequestMapping(value = "/{id}")
-    public Object getEntityById(@PathVariable("boType") String boType, @PathVariable Long id) {
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Object> getEntityById(@PathVariable("boType") String boType, @PathVariable Long id) {
         /*
          * Steps:
          * 1) Translate the bo & ro type
          * 2) Get the bo according to the id
          * 3) Translate the bo to ro and return ro
          */
+    	
+    	Object objectMapper = SpringContext.getBean(com.fasterxml.jackson.databind.ObjectMapper.class);
+    	
         // Get bo/ro class pair
         CollectionUtils.Pair boroPair = boTypeMap.get(boType);
         assert (boroPair != null);
@@ -48,9 +61,35 @@ public class JsonController extends ControllerBase {
             result = this.getDozerMapper().map(boEntity, (Class<?>) boroPair.getValue());
         }
 
-        return result;
+        return new ResponseEntity<Object>(result, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    public ResponseEntity<Void> createEntity(@PathVariable("boType") String boType, @RequestBody String objectString) {
+    	/* Steps:
+    	 * 1) Get bo/ro class pair
+    	 * 2) Convert the post string to corresponding ro entity
+    	 * 3) Convert the ro entity to bo entity
+    	 * 4) Create the bo entity
+    	 * */
+    	// Get bo/ro class pair
+    	CollectionUtils.Pair boroPair = boTypeMap.get(boType);
+    	assert (boroPair != null);
+    	
+    	// Convert posting string to corresponding ro entity
+    	ObjectMapper objectMapper = SpringContext.getBean(OBJECT_MAPPER_NAME, ObjectMapper.class);
+    	try {
+			Object roEntity = objectMapper.readValue(objectString, (Class<?>)boroPair.getValue());
+			Object boEntity = this.getDozerMapper().map(roEntity, (Class<?>)boroPair.getKey());
+			this.getBeanFacade().saveOrUpdate((ApplicationBean)boEntity);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	return new ResponseEntity<Void>(HttpStatus.CREATED);
+    }
+    
     @PostConstruct
     public void initializeBoTypeMap() {
         if (bo2roProperties != null) {

@@ -16,8 +16,8 @@ public class CentralServletConfig implements ServletContextAware {
         ServletContextTemplateResolver sctr = new ServletContextTemplateResolver(this.servletContext);
 
         sctr.setTemplateMode("HTML5");
-        sctr.setPrefix("/WEB-INF/html-template");
-        sctr.setSuffix("html");
+        sctr.setPrefix("/WEB-INF/html-template/");
+        sctr.setSuffix(".html");
         sctr.setCharacterEncoding("UTF-8");
 
         return sctr;
