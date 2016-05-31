@@ -1,0 +1,73 @@
+/*
+ * Define the page to be 100% window size
+*/
+html, body {
+	height: 100%;
+	width: 100%;
+}
+body > div.page-container {
+	min-height: 100%;
+	min-width: 100%;
+}
+
+/*
+ * Header related style
+*/
+h1 {
+	text-align: center;
+}
+
+/*
+ * Table related style
+*/
+
+table {
+	width: 100%;
+}
+
+tr.even {
+	background-color: #77F790;
+}
+
+th, td {
+	text-align: center;
+}
+
+table, tr, th, td {
+	border: 1px solid;
+	border-collapse: collapse; 
+}
+
+table > caption {
+	text-align: left;
+	font-weight: bold;
+	font-size: 1.5em;
+}
+
+/*
+ * Section divider style
+*/
+div.section-divide-div:before {
+	content: "";
+	height: 3em;
+	display: block;
+}
+
+div.section-divide-div:after {
+	content: "";
+	height: 3em;
+	display: block;
+}
+
+/*
+ * Footer related style
+*/
+div.footer-div {
+	position: absolute;
+	height: 100px;
+	width: 100%;
+	bottom: 0px;
+	background-color: #8C9091;
+}
+
+div.footer-div p { text-align: center; }

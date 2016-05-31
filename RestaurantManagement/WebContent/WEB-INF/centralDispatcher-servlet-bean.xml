@@ -51,4 +51,6 @@
 		<property name="templateEngine" ref="thymeleafTemplateEngine" />
 	</bean>
 	
+	<!-- Define resource handler for static resources, like css, js file -->
+	<mvc:resources location="/WEB-INF/resources/" mapping="/resources/**" />
 </beans>

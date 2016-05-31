@@ -1,15 +1,20 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-    
-	<head>
-		<!-- Define javascript & css here -->
-		<title th:text="${title}">Uom Management</title>
-		<link rel="stylesheet" type="text/css" media="all" href="../../template-stype/common.css" th:href="@{/template-style/common.css}" />
-	</head>
-	<body>
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<!-- Define javascript & css here -->
+<title th:text="${title}">Uom Management</title>
+<link rel="stylesheet" type="text/css" media="all"
+	href="../resources/css/common.css"
+	th:href="@{resources/css/common.css}" />
+</head>
+<body>
+	<div class="page-container">
 		<div th:replace="fragment :: header-div"></div>
-		
+
+		<div class="section-div" th:replace="fragment :: section-div"></div>
+
 		<div class="uom-group-div">
 			<table class="uom-group-table">
 				<caption class="uom-group-table-caption">UomGroup Table</caption>
@@ -18,22 +23,31 @@
 					<th class="uom-group-table-head-name">NAME</th>
 					<th class="uom-group-table-head-baseuom">BASE UOM</th>
 				</tr>
-				<tr class="uom-group-table-data-tr" th:each="uomGroup : ${uomGroupList}" th:if="${uomGroupList.isEmpty() == false}">
+				<tr class="uom-group-table-data-tr"
+					th:each="uomGroup, iterStat : ${uomGroupList}"
+					th:if="${uomGroupList.isEmpty() == false}"
+					th:classappend="${iterStat.odd} ? ' even' : ' odd'">
 					<td class="uom-group-table-data-id" th:text="${uomGroup.id}">1</td>
-					<td class="uom-group-table-data-name" th:text="${uomGroup.name}">Group Name</td>
-					<td class="uom-group-table-data-baseuom" th:text="${{uomGroup.baseUom == null} ? NULL : uomGroup.baseUom.name}">Base Uom Name</td>
+					<td class="uom-group-table-data-name" th:text="${uomGroup.name}">Group
+						Name</td>
+					<td class="uom-group-table-data-baseuom"
+						th:text="${{uomGroup.baseUom == null} ? NULL : uomGroup.baseUom.name}">Base
+						Uom Name</td>
 				</tr>
 				<tr class="uom-group-table-data-add-tr">
-					<td class="uom-group-table-data-add">Add new group</td>
+					<td class="uom-group-table-data-add" colspan="3">
+						<button type="button">Add new group</button>
+					</td>
 				</tr>
 			</table>
 		</div>
-		
+
 		<div class="section-div" th:replace="fragment :: section-div">---</div>
-		
+
 		<div class="uom-group-memb-div">
 			<table class="uom-member-table">
-				<caption class="uom-member-table-caption">Uom Group Member Table</caption>
+				<caption class="uom-member-table-caption">Uom Group Member
+					Table</caption>
 				<tr class="uom-member-table-head-tr">
 					<th class="uom-member-table-head-id">ID</th>
 					<th class="uom-member-table-head-name">NAME</th>
@@ -52,7 +66,8 @@
 				<!-- */-->
 			</table>
 		</div>
-		
+
 		<div th:replace="fragment::footer-div">Footer</div>
-	</body>
+	</div>
+</body>
 </html>
